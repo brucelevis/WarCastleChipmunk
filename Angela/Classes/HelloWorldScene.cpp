@@ -1,8 +1,20 @@
 #include "HelloWorldScene.h"
+#include "Constant.h"
 #include "SimpleAudioEngine.h"
+#include "EntityManager.h"
+#include "HealthSystem.h"
+#include "RenderComponent.h"
+#include "HealthComponent.h"
+#include "GunComponent.h"
+#include "EntityFactory.h"
+#include "MoveSystem.h"
+#include "PlayerSystem.h"
+#include "MeleeSystem.h"
+#include "GunSystem.h"
+#include "AISystem.h"
+#include "AIState.h"
 
-using namespace cocos2d;
-using namespace CocosDenshion;
+USING_NS_CC;
 
 CCScene* HelloWorld::scene()
 {
@@ -26,59 +38,309 @@ bool HelloWorld::init()
     // 1. super init first
     if ( !CCLayer::init() )
     {
-        return false;
+	    return false;
     }
-
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
-                                        "CloseNormal.png",
-                                        "CloseSelected.png",
-                                        this,
-                                        menu_selector(HelloWorld::menuCloseCallback) );
-    pCloseItem->setPosition( ccp(CCDirector::sharedDirector()->getWinSize().width - 20, 20) );
-
-    // create menu, it's an autorelease object
-    CCMenu* pMenu = CCMenu::create(pCloseItem, NULL);
-    pMenu->setPosition( CCPointZero );
-    this->addChild(pMenu, 1);
-
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
-    CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Thonburi", 34);
-
-    // ask director the window size
-    CCSize size = CCDirector::sharedDirector()->getWinSize();
-
-    // position the label on the center of the screen
-    pLabel->setPosition( ccp(size.width / 2, size.height - 20) );
-
-    // add the label as a child to this layer
-    this->addChild(pLabel, 1);
-
-    // add "HelloWorld" splash screen"
-    CCSprite* pSprite = CCSprite::create("HelloWorld.png");
-
-    // position the sprite on the center of the screen
-    pSprite->setPosition( ccp(size.width/2, size.height/2) );
-
-    // add the sprite as a child to this layer
-    this->addChild(pSprite, 0);
-    
+ 	basicSetup();
+	addPlayers();
     return true;
 }
 
-void HelloWorld::menuCloseCallback(CCObject* pSender)
+void HelloWorld::basicSetup()
 {
-    CCDirector::sharedDirector()->end();
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    	float MARGIN = 26 / CC_CONTENT_SCALE_FACTOR();
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
+	//nodes
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Sprites.plist");
+	_batchNodes = CCSpriteBatchNode::create("Sprites.pvr.ccz");
+	this->addChild(_batchNodes);
+
+   // Sounds
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Latin_Industries.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("bigHit.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("boom.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("pew.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("pew2.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("smallHit.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("attack.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("defend.wav");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("spawn.wav");
+
+	//other UI
+	CCSprite *background = CCSprite::create("HelloWorld.png");
+    background->setPosition(ccp(winSize.width/2, winSize.height/2));
+    this->addChild(background,-1);
+    
+    CCMenuItemSprite* quirkButton = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("button.png"),CCSprite::createWithSpriteFrameName("button_sel.png"),this,menu_selector(HelloWorld::quirkButtonTapped));
+    CCMenuItemSprite* zapButton =  CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("button.png"),CCSprite::createWithSpriteFrameName("button_sel.png"),this,menu_selector(HelloWorld::zapButtonTapped));
+    CCMenuItemSprite* munchButton =  CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("button.png"),CCSprite::createWithSpriteFrameName("button_sel.png"),this,menu_selector(HelloWorld::munchButtonTapped));
+
+	CCSize contentSize =  zapButton->getContentSize();
+    zapButton->setPosition (ccp(winSize.width/2, MARGIN + contentSize.height/2));
+    quirkButton->setPosition (ccp(zapButton->getPosition().x - contentSize.width/2 - MARGIN - contentSize.width/2, MARGIN + contentSize.height/2));
+    munchButton->setPosition ( ccp(zapButton->getPosition().x + contentSize.width/2 + MARGIN + contentSize.width/2, MARGIN + contentSize.height/2));
+    
+    CCSprite* quirk = CCSprite::createWithSpriteFrameName("quirk1.png");
+    quirk->setPosition(ccp(contentSize.width * 0.25, contentSize.height/2));
+    quirkButton->addChild(quirk);
+    
+    CCSprite* zap = CCSprite::createWithSpriteFrameName("zap1.png");
+    zap->setPosition(ccp(contentSize.width * 0.25, contentSize.height/2));
+    zapButton->addChild(zap);
+    
+    CCSprite* munch = CCSprite::createWithSpriteFrameName("munch1.png");
+    munch->setPosition(ccp(contentSize.width * 0.25, contentSize.height/2));
+    munchButton->addChild(munch);
+    
+    CCLabelBMFont* quirkLabel = CCLabelBMFont::create("10","Courier.fnt");
+
+    quirkLabel->setPosition(ccp(contentSize.width * 0.75, MARGIN*1.1));
+    quirkButton->addChild(quirkLabel);
+	
+    CCLabelBMFont* zapLabel = CCLabelBMFont::create("25","Courier.fnt");
+    zapLabel->setPosition(ccp(contentSize.width * 0.75, MARGIN*1.2));
+    zapButton->addChild(zapLabel);
+
+    CCLabelBMFont* munchLabel = CCLabelBMFont::create("50","Courier.fnt");
+    munchLabel->setPosition(ccp(contentSize.width * 0.75, MARGIN*1.3));
+    munchButton->addChild(munchLabel);
+
+
+    _stateLabel = CCLabelBMFont::create("Idle","Courier.fnt");
+    _stateLabel->setPosition ( ccp(winSize.width/2, winSize.height * 0.3));
+    this->addChild(_stateLabel);
+    
+    CCMenu* menu = CCMenu::create(quirkButton, zapButton, munchButton, NULL);
+    menu->setPosition(CCPointZero);
+    this->addChild(menu);
+    
+    CCSprite* coin1 = CCSprite::createWithSpriteFrameName("coin.png");
+
+    contentSize = coin1->getContentSize();
+    coin1->setPosition(ccp(MARGIN + contentSize.width/2, winSize.height - MARGIN - contentSize.height/2));
+    this->addChild(coin1);
+    
+    CCSprite* coin2 = CCSprite::createWithSpriteFrameName("coin.png");
+    coin2->setPosition(ccp(winSize.width - MARGIN - contentSize.width/2, winSize.height - MARGIN - contentSize.height/2));;
+    this->addChild(coin2);
+        
+    _coin1Label = CCLabelBMFont::create("10","Courier.fnt",winSize.width * 0.25,kCCTextAlignmentLeft);
+    _coin1Label->setPosition(ccp(coin1->getPosition().x + contentSize.width/2 + MARGIN/2 + _coin1Label->getContentSize().width/2, winSize.height - MARGIN*1.5));
+    this->addChild(_coin1Label);
+    
+    _coin2Label = CCLabelBMFont::create("10","Courier.fnt",winSize.width * 0.25,kCCTextAlignmentRight);;
+    _coin2Label->setPosition ( ccp(coin2->getPosition().x -  contentSize.width/2 - MARGIN/2 - _coin1Label->getContentSize().width/2, winSize.height - MARGIN*1.5));
+    this->addChild(_coin2Label);
+    
+    this->setTouchEnabled(true);
+    this->scheduleUpdate();
+	_gameOver=false;
+	
 }
+void HelloWorld::addPlayers()
+{
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	_entityManager =new EntityManager();
+	_entityFactory = new EntityFactory(_entityManager,_batchNodes);
+
+	_healthSystem =new HealthSystem(_entityManager,_entityFactory);
+	_moveSystem =new MoveSystem(_entityManager,_entityFactory);
+	_playerSystem = new PlayerSystem(_entityManager,_entityFactory);
+	_meleeSystem = new MeleeSystem(_entityManager,_entityFactory);
+	_gunSystem = new GunSystem(_entityManager,_entityFactory);
+	_aiSystem = new AISystem(_entityManager,_entityFactory);
+
+	
+    _aiPlayer = _entityFactory->createAIPlayer();
+	_aiPlayer->retain();
+    RenderComponent* aiRender =  _aiPlayer->render();
+    if (aiRender) {
+        aiRender->node->setPosition ( ccp(winSize.width - aiRender->node->getContentSize().width/2, winSize.height/2));
+    }
+ 
+    _humanPlayer = _entityFactory->createHumanPlayer();
+	_humanPlayer->retain();
+    RenderComponent* humanRender =_humanPlayer->render();
+    if (humanRender) {
+          humanRender->node->setPosition ( ccp(humanRender->node->getContentSize().width/2, winSize.height/2));
+    }    
+   
+}
+
+void HelloWorld::restartTapped(CCObject* obj){
+    
+    // Reload the current scene
+    CCScene *scene = HelloWorld::scene();
+    CCDirector::sharedDirector()->replaceScene(CCTransitionZoomFlipX::create(0.5,scene));
+    
+}
+void HelloWorld::quirkButtonTapped(CCObject* obj) {    
+   CCLog("Quirk button tapped!");
+
+     PlayerComponent* humanPlayer = _humanPlayer->player();
+    if (!humanPlayer) return;    
+    if (humanPlayer->coins < COST_QUIRK) return;
+    humanPlayer->coins -= COST_QUIRK;
+
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("spawn.wav");
+    for (int i = 0; i < 2; ++i) {
+
+	    Entity* entity = _entityFactory->createQuirkMonsterWithTeam(1);
+	    RenderComponent* render =entity->render();
+	    if (render) {        
+	        CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	        float randomOffset = CCRANDOM_X_Y(-winSize.height * 0.25, winSize.height * 0.25);
+	        render->node->setPosition ( ccp(winSize.width * 0.25, winSize.height * 0.5 + randomOffset));
+	    }
+    	}
+}
+
+void HelloWorld::zapButtonTapped(CCObject* obj)  {
+      CCLog("Zap button tapped!");
+
+     PlayerComponent* humanPlayer = _humanPlayer->player();
+    if (!humanPlayer) return;    
+    if (humanPlayer->coins < COST_ZAP) return;
+    humanPlayer->coins -= COST_ZAP;
+
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("spawn.wav");
+    
+    Entity* entity = _entityFactory->createZapMonsterWithTeam(1);
+    RenderComponent* render =entity->render();
+    if (render) {        
+        CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+        float randomOffset = CCRANDOM_X_Y(-winSize.height * 0.25, winSize.height * 0.25);
+        render->node->setPosition ( ccp(winSize.width * 0.25, winSize.height * 0.5 + randomOffset));
+    }
+}
+
+void HelloWorld::munchButtonTapped(CCObject* obj)  {
+    CCLog("Munch button tapped!");
+
+     PlayerComponent* humanPlayer = _humanPlayer->player();
+    if (!humanPlayer) return;    
+    if (humanPlayer->coins < COST_MUNCH) return;
+    humanPlayer->coins -= COST_MUNCH;
+
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("spawn.wav");
+    
+    Entity* entity = _entityFactory->createMunchMonsterWithTeam(1);
+    RenderComponent* render =entity->render();
+    if (render) {        
+        CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+        float randomOffset = CCRANDOM_X_Y(-winSize.height * 0.25, winSize.height * 0.25);
+        render->node->setPosition ( ccp(winSize.width * 0.25, winSize.height * 0.5 + randomOffset));
+    }
+}
+
+
+void HelloWorld::showRestartMenu(bool won) {
+    
+    if (_gameOver) return;
+    _gameOver = true;
+    
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    
+    CCString *message;
+    if (won) {
+        message = ccs("You win!");
+    } else {
+        message = ccs("You lose!");
+    }
+    
+    CCLabelBMFont* label = CCLabelBMFont::create(message->getCString(),"Courier.fnt");
+
+    label->setScale ( 0.1f);
+    label->setPosition ( ccp(winSize.width/2, winSize.height * 0.6));
+    this->addChild(label);
+    
+    CCLabelBMFont *restartLabel =CCLabelBMFont::create("Restart" ,"Courier.fnt");
+    
+    
+    CCMenuItemLabel *restartItem = CCMenuItemLabel::create(restartLabel,this,menu_selector(HelloWorld::restartTapped));
+    restartItem->setScale ( 0.1f);
+    restartItem->setPosition ( ccp(winSize.width/2, winSize.height * 0.4));
+    
+    CCMenu *menu = CCMenu::create(restartItem, NULL);
+    menu->setPosition (CCPointZero);
+	this->addChild(menu,10);
+
+    
+    restartItem->runAction(CCScaleTo::create(0.5,1.0));
+    label->runAction(CCScaleTo::create(0.5,1.0));
+    
+}
+
+
+void HelloWorld::update(float delta){
+    _healthSystem->update(delta);
+	_moveSystem->update(delta);
+	_playerSystem->update(delta);
+	_meleeSystem->update(delta);
+	_gunSystem->update(delta);
+	_aiSystem->update(delta);
+
+	
+    // Check for game over
+    HealthComponent* humanHealth = _humanPlayer->health();
+    if (humanHealth) {
+        if (humanHealth->curHP <= 0) {
+            this->showRestartMenu(false);
+        }
+    }    
+    HealthComponent* aiHealth = _aiPlayer->health();
+    if (aiHealth) {
+        if (aiHealth->curHP <= 0) {
+           this->showRestartMenu(true);
+        }
+    }
+    
+    // Display coins
+    PlayerComponent* humanPlayer = _humanPlayer->player();
+    if (humanPlayer) {
+        _coin1Label->setString(CCString::createWithFormat("%d", humanPlayer->coins)->getCString());
+    }
+    PlayerComponent* aiPlayer = _aiPlayer->player();
+    if (aiPlayer) {
+        _coin2Label->setString(CCString::createWithFormat("%d", aiPlayer->coins)->getCString());
+    }
+    
+    // Display AI state
+    AIComponent* aiComp = _aiPlayer->ai();
+    if (aiComp) {
+        _stateLabel->setString(aiComp->state->name()->getCString());
+    }
+    
+}
+
+void HelloWorld::draw(){
+    _healthSystem->draw();
+}
+void HelloWorld::registerWithTouchDispatcher()
+{
+	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this,0,true);
+}
+
+bool HelloWorld::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+{
+    CCPoint touchPoint = this->convertTouchToNodeSpace(pTouch);
+    CCLog("Touch at: %f,%f",touchPoint.x,touchPoint.y);
+    
+    RenderComponent* render = _humanPlayer->render();
+    PlayerComponent* player = _humanPlayer->player();
+    if (render && player) {
+        if (render->node->boundingBox().containsPoint(touchPoint)) {
+            player->attacking = !player->attacking;
+        }
+    }
+	return true;
+}
+
+void HelloWorld::release()
+{
+	CCLayer::release();
+	_humanPlayer->release();
+	_aiPlayer->release();
+}
+
+

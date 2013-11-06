@@ -1,35 +1,23 @@
-//
-//  AngelaAppDelegate.cpp
-//  Angela
-//
-//  Created by apple on 13-9-23.
-//  Copyright __MyCompanyName__ 2013年. All rights reserved.
-//
-
 #include "AppDelegate.h"
-
-#include "cocos2d.h"
-#include "SimpleAudioEngine.h"
 #include "HelloWorldScene.h"
-
+//#include "GameOverScene.h"
 USING_NS_CC;
-using namespace CocosDenshion;
 
-AppDelegate::AppDelegate()
-{
+AppDelegate::AppDelegate() {
 
 }
 
-AppDelegate::~AppDelegate()
+AppDelegate::~AppDelegate() 
 {
 }
 
-bool AppDelegate::applicationDidFinishLaunching()
-{
+bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
-    CCDirector *pDirector = CCDirector::sharedDirector();
-    pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
+    CCDirector* pDirector = CCDirector::sharedDirector();
+    CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
 
+    pDirector->setOpenGLView(pEGLView);
+	
     // turn on display FPS
     pDirector->setDisplayStats(true);
 
@@ -38,6 +26,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // create a scene. it's an autorelease object
     CCScene *pScene = HelloWorld::scene();
+	
 
     // run
     pDirector->runWithScene(pScene);
@@ -46,17 +35,17 @@ bool AppDelegate::applicationDidFinishLaunching()
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
-void AppDelegate::applicationDidEnterBackground()
-{
+void AppDelegate::applicationDidEnterBackground() {
     CCDirector::sharedDirector()->stopAnimation();
-    SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
-    SimpleAudioEngine::sharedEngine()->pauseAllEffects();
+
+    // if you use SimpleAudioEngine, it must be pause
+    // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
-void AppDelegate::applicationWillEnterForeground()
-{
+void AppDelegate::applicationWillEnterForeground() {
     CCDirector::sharedDirector()->startAnimation();
-    SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
-    SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+
+    // if you use SimpleAudioEngine, it must resume here
+    // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 }
