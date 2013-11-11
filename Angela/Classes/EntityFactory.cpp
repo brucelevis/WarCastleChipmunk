@@ -26,7 +26,8 @@ Entity* EntityFactory::createHumanPlayer()
 	_entityManager->addComponent(TeamComponent::create(1),entity);
 	_entityManager->addComponent(PlayerComponent::create(),entity);
 	_entityManager->addComponent(GunComponent::create(200,5,2.0,CCString::create("pew.wav")),entity);
-	return entity;
+	_entityManager->addComponent(PhysicsComponent::create(), entity);
+    return entity;
 }
 		
 Entity* EntityFactory::createAIPlayer()
@@ -41,6 +42,7 @@ Entity* EntityFactory::createAIPlayer()
 	_entityManager->addComponent(PlayerComponent::create(),entity);
 	_entityManager->addComponent(GunComponent::create(200,5,2.0,CCString::create("pew.wav")),entity);
 	_entityManager->addComponent(AIComponent::create(new AIStateMass()),entity);
+	_entityManager->addComponent(PhysicsComponent::create(), entity);
 	return entity;
 
 }
@@ -59,6 +61,7 @@ Entity* EntityFactory::createQuirkMonsterWithTeam(int team)
     _entityManager->addComponent(TeamComponent::create(team),entity);
     _entityManager->addComponent(MeleeComponent::create(1.25,false,0.5,false,CCString::create("smallHit.wav")),entity);
     _entityManager->addComponent(MonsterComponent::create(MonsterTypeQuirk),entity);
+	_entityManager->addComponent(PhysicsComponent::create(), entity);
 
 	return entity;
 
@@ -77,8 +80,8 @@ Entity* EntityFactory::createZapMonsterWithTeam(int team)
 	_entityManager->addComponent(MoveComponent::create(ccp(200, 200),50,50),entity);
     _entityManager->addComponent(TeamComponent::create(team),entity);
     _entityManager->addComponent(GunComponent::create(10,5,2.0,CCString::create("pew.wav")),entity);
-
     _entityManager->addComponent(MonsterComponent::create(MonsterTypeZap),entity);
+	_entityManager->addComponent(PhysicsComponent::create(), entity);
 	return entity;
 
 
@@ -99,6 +102,7 @@ Entity* EntityFactory::createMunchMonsterWithTeam(int team)
 	_entityManager->addComponent(TeamComponent::create(team),entity);
 	_entityManager->addComponent(MeleeComponent::create(10,false,1.5,false,CCString::create("bigHit.wav")),entity);
 	_entityManager->addComponent(MonsterComponent::create(MonsterTypeMunch),entity);
+	_entityManager->addComponent(PhysicsComponent::create(), entity);
 
 	return entity;
 }
@@ -113,6 +117,7 @@ Entity* EntityFactory::createLaserWithTeam(int team)
     _entityManager->addComponent(TeamComponent::create(team),entity);
     _entityManager->addComponent(MeleeComponent::create(5,true,1.0,false,CCString::create("smallHit.wav")),entity);
     _entityManager->addComponent(BulletComponent::create(),entity);
+	_entityManager->addComponent(PhysicsComponent::create(), entity);
     
     return entity;
 

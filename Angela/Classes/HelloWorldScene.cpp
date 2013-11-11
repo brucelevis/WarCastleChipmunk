@@ -11,6 +11,7 @@
 #include "PlayerSystem.h"
 #include "MeleeSystem.h"
 #include "GunSystem.h"
+#include "PhysicsSystem.h"
 #include "AISystem.h"
 #include "AIState.h"
 
@@ -67,7 +68,7 @@ void HelloWorld::basicSetup()
     CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("spawn.wav");
 
 	//other UI
-	CCSprite *background = CCSprite::create("HelloWorld.png");
+	CCSprite *background = CCSprite::create("Default.png");
     background->setPosition(ccp(winSize.width/2, winSize.height/2));
     this->addChild(background,-1);
     
@@ -149,7 +150,7 @@ void HelloWorld::addPlayers()
 	_meleeSystem = new MeleeSystem(_entityManager,_entityFactory);
 	_gunSystem = new GunSystem(_entityManager,_entityFactory);
 	_aiSystem = new AISystem(_entityManager,_entityFactory);
-
+    _physicsSystem = new PhysicsSystem(_entityManager,_entityFactory);
 	
     _aiPlayer = _entityFactory->createAIPlayer();
 	_aiPlayer->retain();
@@ -279,7 +280,7 @@ void HelloWorld::update(float delta){
 	_meleeSystem->update(delta);
 	_gunSystem->update(delta);
 	_aiSystem->update(delta);
-
+    _physicsSystem->update(delta);
 	
     // Check for game over
     HealthComponent* humanHealth = _humanPlayer->health();

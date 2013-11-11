@@ -339,6 +339,8 @@
 		18C3F8D6181BF97300998601 /* Sprites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C3F8C0181BF97300998601 /* Sprites.plist */; };
 		18C3F8D7181BF97300998601 /* Sprites.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 18C3F8C1181BF97300998601 /* Sprites.pvr.ccz */; };
 		18C8686618290B0F007B2CCB /* BulletComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18C8686418290B0F007B2CCB /* BulletComponent.cpp */; };
+		18E8F56E182BBA260000F2DE /* PhysicsComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18E8F56D182BBA260000F2DE /* PhysicsComponent.cpp */; };
+		18E8F571182BDA980000F2DE /* PhysicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18E8F570182BDA980000F2DE /* PhysicsSystem.cpp */; };
 		18EA785118267CBF00296430 /* HelloWorld@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA785018267CBF00296430 /* HelloWorld@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -1029,6 +1031,10 @@
 		18C3F8C1181BF97300998601 /* Sprites.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = Sprites.pvr.ccz; path = Resources/Sprites.pvr.ccz; sourceTree = "<group>"; };
 		18C8686418290B0F007B2CCB /* BulletComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BulletComponent.cpp; path = Classes/BulletComponent.cpp; sourceTree = "<group>"; };
 		18C8686518290B0F007B2CCB /* BulletComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BulletComponent.h; path = Classes/BulletComponent.h; sourceTree = "<group>"; };
+		18E8F56C182BBA100000F2DE /* PhysicsComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicsComponent.h; sourceTree = "<group>"; };
+		18E8F56D182BBA260000F2DE /* PhysicsComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsComponent.cpp; sourceTree = "<group>"; };
+		18E8F56F182BDA280000F2DE /* PhysicsSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicsSystem.h; sourceTree = "<group>"; };
+		18E8F570182BDA980000F2DE /* PhysicsSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsSystem.cpp; sourceTree = "<group>"; };
 		18EA785018267CBF00296430 /* HelloWorld@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HelloWorld@2x.png"; path = "Resources/HelloWorld@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2351,6 +2357,10 @@
 				18A2B65617F089D9009034E3 /* AppDelegate.cpp */,
 				18A2B65817F089D9009034E3 /* HelloWorldScene.h */,
 				18A2B65917F089D9009034E3 /* HelloWorldScene.cpp */,
+				18E8F56C182BBA100000F2DE /* PhysicsComponent.h */,
+				18E8F56D182BBA260000F2DE /* PhysicsComponent.cpp */,
+				18E8F56F182BDA280000F2DE /* PhysicsSystem.h */,
+				18E8F570182BDA980000F2DE /* PhysicsSystem.cpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2754,6 +2764,8 @@
 				18C3F8AA181BF20D00998601 /* TeamComponent.cpp in Sources */,
 				18C3F8AB181BF20D00998601 /* ZapMonster.cpp in Sources */,
 				18C8686618290B0F007B2CCB /* BulletComponent.cpp in Sources */,
+				18E8F56E182BBA260000F2DE /* PhysicsComponent.cpp in Sources */,
+				18E8F571182BDA980000F2DE /* PhysicsSystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2895,7 +2907,7 @@
 				18A2B65C17F089D9009034E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		18A2B65D17F089D9009034E3 /* Build configuration list for PBXNativeTarget "Angela" */ = {
 			isa = XCConfigurationList;
@@ -2904,7 +2916,7 @@
 				18A2B65F17F089D9009034E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

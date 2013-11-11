@@ -7,6 +7,8 @@
 #include "HealthComponent.h"
 #include "MoveComponent.h"
 #include "GunComponent.h"
+#include "PhysicsComponent.h"
+
 NS_CC_BEGIN
 class Entity;
 class EntityManager;

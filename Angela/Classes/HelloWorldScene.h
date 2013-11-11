@@ -18,7 +18,7 @@
 #include "MeleeSystem.h"
 #include "GunSystem.h"
 #include "AISystem.h"
-
+#include "PhysicsSystem.h"
 
 #define PTM_RATIO 32.0
 
@@ -47,7 +47,7 @@ protected:
 	MeleeSystem* _meleeSystem;
        GunSystem* _gunSystem;
 	AISystem* _aiSystem;
-
+    PhysicsSystem* _physicsSystem;
 
 
 public:
