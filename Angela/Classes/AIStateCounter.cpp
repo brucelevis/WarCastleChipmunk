@@ -32,7 +32,7 @@ CCString *AIStateCounter::name() {
             }
         }
                 
-        system->changeStateForEntity(entity,new AIStateDefend());
+        system->changeStateForEntity(entity,AIStateDefend::create());
         
     }
     

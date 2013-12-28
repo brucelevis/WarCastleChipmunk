@@ -3,10 +3,10 @@
 USING_NS_CC;
 
 
-bool MunchMonster::create(int team,HelloWorld *layer)
+bool MunchMonster::create(int team)
 {
   CCString * spriteFrameName = CCString::createWithFormat("munch%d.png", team);
-     if (GameObject::create(spriteFrameName,layer)) {
+     if (GameObject::create(spriteFrameName)) {
     	this->curHp = 50;
         this->maxHp = 50;
         this->team = team;

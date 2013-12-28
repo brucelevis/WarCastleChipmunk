@@ -32,7 +32,7 @@ public:
 	inline void monsterMoveEnded(CCNode *node){
 		_monsters->removeObject(node);
 		node->removeFromParentAndCleanup(true);
-		cocos2d::CCScene *gameover = GameOverLayer::scene(false);
+		cocos2d::CCScene *gameover = GameOverLayer::scene(false,1);
 		cocos2d::CCDirector::sharedDirector()->replaceScene(gameover);
 	}
     inline void MoveEnded(CCNode *node){

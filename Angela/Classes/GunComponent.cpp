@@ -2,7 +2,7 @@
 
 USING_NS_CC;
 
-GunComponent::GunComponent(float range,float damage,float damageRate,CCString *sound)
+GunComponent::GunComponent(float range,float damage,float damageRate,CCString *sound )
 {
   	this->range = range;
 	this->damage = damage;
@@ -10,7 +10,7 @@ GunComponent::GunComponent(float range,float damage,float damageRate,CCString *s
 	this->sound = sound;
 	this->sound->retain();
 }
-GunComponent* GunComponent::create(float range,float damage,float damageRate,CCString *sound)\
+GunComponent* GunComponent::create(float range,float damage,float damageRate,CCString *sound )\
 {
 	GunComponent *pRet = new GunComponent( range, damage, damageRate,sound); \
 	if (pRet ) \

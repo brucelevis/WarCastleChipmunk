@@ -281,6 +281,40 @@
 		18A2B65117F089D9009034E3 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A2B65017F089D9009034E3 /* libwebsockets.a */; };
 		18A2B65717F089D9009034E3 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18A2B65617F089D9009034E3 /* AppDelegate.cpp */; };
 		18A2B65A17F089D9009034E3 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18A2B65917F089D9009034E3 /* HelloWorldScene.cpp */; };
+		18BCC4A4183F4F2A00BA3B31 /* ArmorHomeScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18BCC4A0183F4F2A00BA3B31 /* ArmorHomeScene.cpp */; };
+		18BCC4A5183F4F2A00BA3B31 /* CCLayerParent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18BCC4A2183F4F2A00BA3B31 /* CCLayerParent.cpp */; };
+		18BCC4C3183F4F7D00BA3B31 /* Castle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4A6183F4F7D00BA3B31 /* Castle.jpg */; };
+		18BCC4C4183F4F7D00BA3B31 /* aoe1.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4A7183F4F7D00BA3B31 /* aoe1.png */; };
+		18BCC4C5183F4F7D00BA3B31 /* aoe2.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4A8183F4F7D00BA3B31 /* aoe2.png */; };
+		18BCC4C6183F4F7D00BA3B31 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4A9183F4F7D00BA3B31 /* bullet.png */; };
+		18BCC4C7183F4F7D00BA3B31 /* button_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4AA183F4F7D00BA3B31 /* button_sel.png */; };
+		18BCC4C8183F4F7D00BA3B31 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4AB183F4F7D00BA3B31 /* button.png */; };
+		18BCC4C9183F4F7D00BA3B31 /* castle1_atk.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4AC183F4F7D00BA3B31 /* castle1_atk.png */; };
+		18BCC4CA183F4F7D00BA3B31 /* castle1_def.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4AD183F4F7D00BA3B31 /* castle1_def.png */; };
+		18BCC4CB183F4F7D00BA3B31 /* castle2_atk.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4AE183F4F7D00BA3B31 /* castle2_atk.png */; };
+		18BCC4CC183F4F7D00BA3B31 /* castle2_def.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4AF183F4F7D00BA3B31 /* castle2_def.png */; };
+		18BCC4CD183F4F7D00BA3B31 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4B0183F4F7D00BA3B31 /* coin.png */; };
+		18BCC4CE183F4F7D00BA3B31 /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4B1183F4F7D00BA3B31 /* explosion.png */; };
+		18BCC4CF183F4F7D00BA3B31 /* explosion1.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4B2183F4F7D00BA3B31 /* explosion1.png */; };
+		18BCC4D0183F4F7D00BA3B31 /* explosion2.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4B3183F4F7D00BA3B31 /* explosion2.png */; };
+		18BCC4D1183F4F7D00BA3B31 /* munch1.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4B4183F4F7D00BA3B31 /* munch1.png */; };
+		18BCC4D2183F4F7D00BA3B31 /* munch2.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4B5183F4F7D00BA3B31 /* munch2.png */; };
+		18BCC4D3183F4F7D00BA3B31 /* quirk1.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4B6183F4F7D00BA3B31 /* quirk1.png */; };
+		18BCC4D4183F4F7D00BA3B31 /* quirk2.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4B7183F4F7D00BA3B31 /* quirk2.png */; };
+		18BCC4D5183F4F7D00BA3B31 /* separatorLine.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4B8183F4F7D00BA3B31 /* separatorLine.png */; };
+		18BCC4D6183F4F7D00BA3B31 /* separatorLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4B9183F4F7D00BA3B31 /* separatorLine@2x.png */; };
+		18BCC4D7183F4F7D00BA3B31 /* zap1.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4BA183F4F7D00BA3B31 /* zap1.png */; };
+		18BCC4D8183F4F7D00BA3B31 /* zap2.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4BB183F4F7D00BA3B31 /* zap2.png */; };
+		18BCC4D9183F4F7D00BA3B31 /* aoe1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4BC183F4F7D00BA3B31 /* aoe1.plist */; };
+		18BCC4DA183F4F7D00BA3B31 /* aoe2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4BD183F4F7D00BA3B31 /* aoe2.plist */; };
+		18BCC4DB183F4F7D00BA3B31 /* bullet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4BE183F4F7D00BA3B31 /* bullet.plist */; };
+		18BCC4DC183F4F7D00BA3B31 /* explosion.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4BF183F4F7D00BA3B31 /* explosion.plist */; };
+		18BCC4DD183F4F7D00BA3B31 /* explosion1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4C0183F4F7D00BA3B31 /* explosion1.plist */; };
+		18BCC4DE183F4F7D00BA3B31 /* explosion2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4C1183F4F7D00BA3B31 /* explosion2.plist */; };
+		18BCC4DF183F4F7D00BA3B31 /* sprites.tps in Resources */ = {isa = PBXBuildFile; fileRef = 18BCC4C2183F4F7D00BA3B31 /* sprites.tps */; };
+		18BCC4E9183F523E00BA3B31 /* TutorialMunchScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18BCC4E3183F523C00BA3B31 /* TutorialMunchScene.cpp */; };
+		18BCC4EA183F523E00BA3B31 /* TutorialQuirkScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18BCC4E5183F523D00BA3B31 /* TutorialQuirkScene.cpp */; };
+		18BCC4EB183F523E00BA3B31 /* TutorialZapScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18BCC4E7183F523D00BA3B31 /* TutorialZapScene.cpp */; };
 		18C3F889181BF20D00998601 /* AIComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18C3F842181BF20C00998601 /* AIComponent.cpp */; };
 		18C3F88A181BF20D00998601 /* AIPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18C3F844181BF20C00998601 /* AIPlayer.cpp */; };
 		18C3F88B181BF20D00998601 /* AIState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18C3F846181BF20C00998601 /* AIState.cpp */; };
@@ -339,9 +373,10 @@
 		18C3F8D6181BF97300998601 /* Sprites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C3F8C0181BF97300998601 /* Sprites.plist */; };
 		18C3F8D7181BF97300998601 /* Sprites.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 18C3F8C1181BF97300998601 /* Sprites.pvr.ccz */; };
 		18C8686618290B0F007B2CCB /* BulletComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18C8686418290B0F007B2CCB /* BulletComponent.cpp */; };
-		18E8F56E182BBA260000F2DE /* PhysicsComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18E8F56D182BBA260000F2DE /* PhysicsComponent.cpp */; };
-		18E8F571182BDA980000F2DE /* PhysicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18E8F570182BDA980000F2DE /* PhysicsSystem.cpp */; };
 		18EA785118267CBF00296430 /* HelloWorld@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EA785018267CBF00296430 /* HelloWorld@2x.png */; };
+		18FD046418423F9000CC41C3 /* TutorialMunchQuirkScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18FD045E18423F7E00CC41C3 /* TutorialMunchQuirkScene.cpp */; };
+		18FD046518423F9000CC41C3 /* TutorialQuirkZapScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18FD046018423F8400CC41C3 /* TutorialQuirkZapScene.cpp */; };
+		18FD046618423F9000CC41C3 /* TutorialZapMunchScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18FD046218423F8A00CC41C3 /* TutorialZapMunchScene.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -936,6 +971,46 @@
 		18A2B65617F089D9009034E3 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
 		18A2B65817F089D9009034E3 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
 		18A2B65917F089D9009034E3 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
+		18BCC4A0183F4F2A00BA3B31 /* ArmorHomeScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ArmorHomeScene.cpp; path = Classes/ArmorHomeScene.cpp; sourceTree = "<group>"; };
+		18BCC4A1183F4F2A00BA3B31 /* ArmorHomeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArmorHomeScene.h; path = Classes/ArmorHomeScene.h; sourceTree = "<group>"; };
+		18BCC4A2183F4F2A00BA3B31 /* CCLayerParent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCLayerParent.cpp; path = Classes/CCLayerParent.cpp; sourceTree = "<group>"; };
+		18BCC4A3183F4F2A00BA3B31 /* CCLayerParent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCLayerParent.h; path = Classes/CCLayerParent.h; sourceTree = "<group>"; };
+		18BCC4A6183F4F7D00BA3B31 /* Castle.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Castle.jpg; path = Resources/Castle.jpg; sourceTree = "<group>"; };
+		18BCC4A7183F4F7D00BA3B31 /* aoe1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = aoe1.png; path = Resources/aoe1.png; sourceTree = "<group>"; };
+		18BCC4A8183F4F7D00BA3B31 /* aoe2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = aoe2.png; path = Resources/aoe2.png; sourceTree = "<group>"; };
+		18BCC4A9183F4F7D00BA3B31 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bullet.png; path = Resources/bullet.png; sourceTree = "<group>"; };
+		18BCC4AA183F4F7D00BA3B31 /* button_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_sel.png; path = Resources/button_sel.png; sourceTree = "<group>"; };
+		18BCC4AB183F4F7D00BA3B31 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button.png; path = Resources/button.png; sourceTree = "<group>"; };
+		18BCC4AC183F4F7D00BA3B31 /* castle1_atk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = castle1_atk.png; path = Resources/castle1_atk.png; sourceTree = "<group>"; };
+		18BCC4AD183F4F7D00BA3B31 /* castle1_def.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = castle1_def.png; path = Resources/castle1_def.png; sourceTree = "<group>"; };
+		18BCC4AE183F4F7D00BA3B31 /* castle2_atk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = castle2_atk.png; path = Resources/castle2_atk.png; sourceTree = "<group>"; };
+		18BCC4AF183F4F7D00BA3B31 /* castle2_def.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = castle2_def.png; path = Resources/castle2_def.png; sourceTree = "<group>"; };
+		18BCC4B0183F4F7D00BA3B31 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = Resources/coin.png; sourceTree = "<group>"; };
+		18BCC4B1183F4F7D00BA3B31 /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = explosion.png; path = Resources/explosion.png; sourceTree = "<group>"; };
+		18BCC4B2183F4F7D00BA3B31 /* explosion1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = explosion1.png; path = Resources/explosion1.png; sourceTree = "<group>"; };
+		18BCC4B3183F4F7D00BA3B31 /* explosion2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = explosion2.png; path = Resources/explosion2.png; sourceTree = "<group>"; };
+		18BCC4B4183F4F7D00BA3B31 /* munch1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = munch1.png; path = Resources/munch1.png; sourceTree = "<group>"; };
+		18BCC4B5183F4F7D00BA3B31 /* munch2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = munch2.png; path = Resources/munch2.png; sourceTree = "<group>"; };
+		18BCC4B6183F4F7D00BA3B31 /* quirk1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = quirk1.png; path = Resources/quirk1.png; sourceTree = "<group>"; };
+		18BCC4B7183F4F7D00BA3B31 /* quirk2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = quirk2.png; path = Resources/quirk2.png; sourceTree = "<group>"; };
+		18BCC4B8183F4F7D00BA3B31 /* separatorLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = separatorLine.png; path = Resources/separatorLine.png; sourceTree = "<group>"; };
+		18BCC4B9183F4F7D00BA3B31 /* separatorLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "separatorLine@2x.png"; path = "Resources/separatorLine@2x.png"; sourceTree = "<group>"; };
+		18BCC4BA183F4F7D00BA3B31 /* zap1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zap1.png; path = Resources/zap1.png; sourceTree = "<group>"; };
+		18BCC4BB183F4F7D00BA3B31 /* zap2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zap2.png; path = Resources/zap2.png; sourceTree = "<group>"; };
+		18BCC4BC183F4F7D00BA3B31 /* aoe1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = aoe1.plist; path = Resources/aoe1.plist; sourceTree = "<group>"; };
+		18BCC4BD183F4F7D00BA3B31 /* aoe2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = aoe2.plist; path = Resources/aoe2.plist; sourceTree = "<group>"; };
+		18BCC4BE183F4F7D00BA3B31 /* bullet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = bullet.plist; path = Resources/bullet.plist; sourceTree = "<group>"; };
+		18BCC4BF183F4F7D00BA3B31 /* explosion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = explosion.plist; path = Resources/explosion.plist; sourceTree = "<group>"; };
+		18BCC4C0183F4F7D00BA3B31 /* explosion1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = explosion1.plist; path = Resources/explosion1.plist; sourceTree = "<group>"; };
+		18BCC4C1183F4F7D00BA3B31 /* explosion2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = explosion2.plist; path = Resources/explosion2.plist; sourceTree = "<group>"; };
+		18BCC4C2183F4F7D00BA3B31 /* sprites.tps */ = {isa = PBXFileReference; lastKnownFileType = file; name = sprites.tps; path = Resources/sprites.tps; sourceTree = "<group>"; };
+		18BCC4E2183F523C00BA3B31 /* Scenes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scenes.h; path = Classes/Scenes.h; sourceTree = "<group>"; };
+		18BCC4E3183F523C00BA3B31 /* TutorialMunchScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialMunchScene.cpp; path = Classes/TutorialMunchScene.cpp; sourceTree = "<group>"; };
+		18BCC4E4183F523C00BA3B31 /* TutorialMunchScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialMunchScene.h; path = Classes/TutorialMunchScene.h; sourceTree = "<group>"; };
+		18BCC4E5183F523D00BA3B31 /* TutorialQuirkScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialQuirkScene.cpp; path = Classes/TutorialQuirkScene.cpp; sourceTree = "<group>"; };
+		18BCC4E6183F523D00BA3B31 /* TutorialQuirkScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialQuirkScene.h; path = Classes/TutorialQuirkScene.h; sourceTree = "<group>"; };
+		18BCC4E7183F523D00BA3B31 /* TutorialZapScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialZapScene.cpp; path = Classes/TutorialZapScene.cpp; sourceTree = "<group>"; };
+		18BCC4E8183F523D00BA3B31 /* TutorialZapScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialZapScene.h; path = Classes/TutorialZapScene.h; sourceTree = "<group>"; };
 		18C3F842181BF20C00998601 /* AIComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIComponent.cpp; path = Classes/AIComponent.cpp; sourceTree = "<group>"; };
 		18C3F843181BF20C00998601 /* AIComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIComponent.h; path = Classes/AIComponent.h; sourceTree = "<group>"; };
 		18C3F844181BF20C00998601 /* AIPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIPlayer.cpp; path = Classes/AIPlayer.cpp; sourceTree = "<group>"; };
@@ -1031,11 +1106,13 @@
 		18C3F8C1181BF97300998601 /* Sprites.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; name = Sprites.pvr.ccz; path = Resources/Sprites.pvr.ccz; sourceTree = "<group>"; };
 		18C8686418290B0F007B2CCB /* BulletComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BulletComponent.cpp; path = Classes/BulletComponent.cpp; sourceTree = "<group>"; };
 		18C8686518290B0F007B2CCB /* BulletComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BulletComponent.h; path = Classes/BulletComponent.h; sourceTree = "<group>"; };
-		18E8F56C182BBA100000F2DE /* PhysicsComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicsComponent.h; sourceTree = "<group>"; };
-		18E8F56D182BBA260000F2DE /* PhysicsComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsComponent.cpp; sourceTree = "<group>"; };
-		18E8F56F182BDA280000F2DE /* PhysicsSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicsSystem.h; sourceTree = "<group>"; };
-		18E8F570182BDA980000F2DE /* PhysicsSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsSystem.cpp; sourceTree = "<group>"; };
 		18EA785018267CBF00296430 /* HelloWorld@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HelloWorld@2x.png"; path = "Resources/HelloWorld@2x.png"; sourceTree = "<group>"; };
+		18FD045E18423F7E00CC41C3 /* TutorialMunchQuirkScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialMunchQuirkScene.cpp; path = Classes/TutorialMunchQuirkScene.cpp; sourceTree = "<group>"; };
+		18FD045F18423F8100CC41C3 /* TutorialMunchQuirkScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialMunchQuirkScene.h; path = Classes/TutorialMunchQuirkScene.h; sourceTree = "<group>"; };
+		18FD046018423F8400CC41C3 /* TutorialQuirkZapScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialQuirkZapScene.cpp; path = Classes/TutorialQuirkZapScene.cpp; sourceTree = "<group>"; };
+		18FD046118423F8700CC41C3 /* TutorialQuirkZapScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialQuirkZapScene.h; path = Classes/TutorialQuirkZapScene.h; sourceTree = "<group>"; };
+		18FD046218423F8A00CC41C3 /* TutorialZapMunchScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TutorialZapMunchScene.cpp; path = Classes/TutorialZapMunchScene.cpp; sourceTree = "<group>"; };
+		18FD046318423F8E00CC41C3 /* TutorialZapMunchScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialZapMunchScene.h; path = Classes/TutorialZapMunchScene.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1107,6 +1184,35 @@
 		18A2B2C417F089D3009034E3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				18BCC4A6183F4F7D00BA3B31 /* Castle.jpg */,
+				18BCC4A7183F4F7D00BA3B31 /* aoe1.png */,
+				18BCC4A8183F4F7D00BA3B31 /* aoe2.png */,
+				18BCC4A9183F4F7D00BA3B31 /* bullet.png */,
+				18BCC4AA183F4F7D00BA3B31 /* button_sel.png */,
+				18BCC4AB183F4F7D00BA3B31 /* button.png */,
+				18BCC4AC183F4F7D00BA3B31 /* castle1_atk.png */,
+				18BCC4AD183F4F7D00BA3B31 /* castle1_def.png */,
+				18BCC4AE183F4F7D00BA3B31 /* castle2_atk.png */,
+				18BCC4AF183F4F7D00BA3B31 /* castle2_def.png */,
+				18BCC4B0183F4F7D00BA3B31 /* coin.png */,
+				18BCC4B1183F4F7D00BA3B31 /* explosion.png */,
+				18BCC4B2183F4F7D00BA3B31 /* explosion1.png */,
+				18BCC4B3183F4F7D00BA3B31 /* explosion2.png */,
+				18BCC4B4183F4F7D00BA3B31 /* munch1.png */,
+				18BCC4B5183F4F7D00BA3B31 /* munch2.png */,
+				18BCC4B6183F4F7D00BA3B31 /* quirk1.png */,
+				18BCC4B7183F4F7D00BA3B31 /* quirk2.png */,
+				18BCC4B8183F4F7D00BA3B31 /* separatorLine.png */,
+				18BCC4B9183F4F7D00BA3B31 /* separatorLine@2x.png */,
+				18BCC4BA183F4F7D00BA3B31 /* zap1.png */,
+				18BCC4BB183F4F7D00BA3B31 /* zap2.png */,
+				18BCC4BC183F4F7D00BA3B31 /* aoe1.plist */,
+				18BCC4BD183F4F7D00BA3B31 /* aoe2.plist */,
+				18BCC4BE183F4F7D00BA3B31 /* bullet.plist */,
+				18BCC4BF183F4F7D00BA3B31 /* explosion.plist */,
+				18BCC4C0183F4F7D00BA3B31 /* explosion1.plist */,
+				18BCC4C1183F4F7D00BA3B31 /* explosion2.plist */,
+				18BCC4C2183F4F7D00BA3B31 /* sprites.tps */,
 				18354C77182A82F9000E2318 /* Default-568h@2x.png */,
 				18EA785018267CBF00296430 /* HelloWorld@2x.png */,
 				18C3F8AC181BF97200998601 /* attack.wav */,
@@ -2280,8 +2386,99 @@
 		18A2B65417F089D9009034E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18BE56B8184CABC000384938 /* comsys */,
+				18BE56B7184CAB7F00384938 /* scenes */,
+				18A2B65517F089D9009034E3 /* AppDelegate.h */,
+				18A2B65617F089D9009034E3 /* AppDelegate.cpp */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		18BE56B7184CAB7F00384938 /* scenes */ = {
+			isa = PBXGroup;
+			children = (
+				18C3F85D181BF20D00998601 /* GameOverScene.cpp */,
+				18C3F85E181BF20D00998601 /* GameOverScene.h */,
+				18C3F881181BF20D00998601 /* SplashScene.cpp */,
+				18C3F882181BF20D00998601 /* SplashScene.h */,
+				18BCC4A0183F4F2A00BA3B31 /* ArmorHomeScene.cpp */,
+				18BCC4A1183F4F2A00BA3B31 /* ArmorHomeScene.h */,
+				18BCC4A2183F4F2A00BA3B31 /* CCLayerParent.cpp */,
+				18BCC4A3183F4F2A00BA3B31 /* CCLayerParent.h */,
+				18FD045E18423F7E00CC41C3 /* TutorialMunchQuirkScene.cpp */,
+				18FD045F18423F8100CC41C3 /* TutorialMunchQuirkScene.h */,
+				18FD046018423F8400CC41C3 /* TutorialQuirkZapScene.cpp */,
+				18FD046118423F8700CC41C3 /* TutorialQuirkZapScene.h */,
+				18FD046218423F8A00CC41C3 /* TutorialZapMunchScene.cpp */,
+				18FD046318423F8E00CC41C3 /* TutorialZapMunchScene.h */,
+				18BCC4E2183F523C00BA3B31 /* Scenes.h */,
+				18BCC4E3183F523C00BA3B31 /* TutorialMunchScene.cpp */,
+				18BCC4E4183F523C00BA3B31 /* TutorialMunchScene.h */,
+				18BCC4E7183F523D00BA3B31 /* TutorialZapScene.cpp */,
+				18BCC4E8183F523D00BA3B31 /* TutorialZapScene.h */,
+				18BCC4E5183F523D00BA3B31 /* TutorialQuirkScene.cpp */,
+				18BCC4E6183F523D00BA3B31 /* TutorialQuirkScene.h */,
+				18A2B65817F089D9009034E3 /* HelloWorldScene.h */,
+				18A2B65917F089D9009034E3 /* HelloWorldScene.cpp */,
+			);
+			name = scenes;
+			sourceTree = "<group>";
+		};
+		18BE56B8184CABC000384938 /* comsys */ = {
+			isa = PBXGroup;
+			children = (
+				18BE56BA184CACA400384938 /* monster */,
+				18BE56B9184CAC7100384938 /* ai */,
 				18C8686418290B0F007B2CCB /* BulletComponent.cpp */,
 				18C8686518290B0F007B2CCB /* BulletComponent.h */,
+				18C3F852181BF20C00998601 /* Component.cpp */,
+				18C3F853181BF20C00998601 /* Component.h */,
+				18C3F854181BF20C00998601 /* Constant.h */,
+				18C3F855181BF20C00998601 /* Entity.cpp */,
+				18C3F856181BF20C00998601 /* Entity.h */,
+				18C3F857181BF20C00998601 /* EntityFactory.cpp */,
+				18C3F858181BF20C00998601 /* EntityFactory.h */,
+				18C3F859181BF20C00998601 /* EntityManager.cpp */,
+				18C3F85A181BF20C00998601 /* EntityManager.h */,
+				18C3F85B181BF20D00998601 /* GameObject.cpp */,
+				18C3F85C181BF20D00998601 /* GameObject.h */,
+				18C3F85F181BF20D00998601 /* GunComponent.cpp */,
+				18C3F860181BF20D00998601 /* GunComponent.h */,
+				18C3F861181BF20D00998601 /* GunSystem.cpp */,
+				18C3F862181BF20D00998601 /* GunSystem.h */,
+				18C3F863181BF20D00998601 /* HealthComponent.cpp */,
+				18C3F864181BF20D00998601 /* HealthComponent.h */,
+				18C3F865181BF20D00998601 /* HealthSystem.cpp */,
+				18C3F866181BF20D00998601 /* HealthSystem.h */,
+				18C3F867181BF20D00998601 /* HumanPlayer.cpp */,
+				18C3F868181BF20D00998601 /* HumanPlayer.h */,
+				18C3F869181BF20D00998601 /* MeleeComponent.cpp */,
+				18C3F86A181BF20D00998601 /* MeleeComponent.h */,
+				18C3F86B181BF20D00998601 /* MeleeSystem.cpp */,
+				18C3F86C181BF20D00998601 /* MeleeSystem.h */,
+				18C3F871181BF20D00998601 /* MoveComponent.cpp */,
+				18C3F872181BF20D00998601 /* MoveComponent.h */,
+				18C3F873181BF20D00998601 /* MoveSystem.cpp */,
+				18C3F874181BF20D00998601 /* MoveSystem.h */,
+				18C3F877181BF20D00998601 /* Player.cpp */,
+				18C3F878181BF20D00998601 /* Player.h */,
+				18C3F879181BF20D00998601 /* PlayerComponent.cpp */,
+				18C3F87A181BF20D00998601 /* PlayerComponent.h */,
+				18C3F87B181BF20D00998601 /* PlayerSystem.cpp */,
+				18C3F87C181BF20D00998601 /* PlayerSystem.h */,
+				18C3F87F181BF20D00998601 /* RenderComponent.cpp */,
+				18C3F880181BF20D00998601 /* RenderComponent.h */,
+				18C3F883181BF20D00998601 /* System.cpp */,
+				18C3F884181BF20D00998601 /* System.h */,
+				18C3F885181BF20D00998601 /* TeamComponent.cpp */,
+				18C3F886181BF20D00998601 /* TeamComponent.h */,
+			);
+			name = comsys;
+			sourceTree = "<group>";
+		};
+		18BE56B9184CAC7100384938 /* ai */ = {
+			isa = PBXGroup;
+			children = (
 				18C3F842181BF20C00998601 /* AIComponent.cpp */,
 				18C3F843181BF20C00998601 /* AIComponent.h */,
 				18C3F844181BF20C00998601 /* AIPlayer.cpp */,
@@ -2298,71 +2495,25 @@
 				18C3F84F181BF20C00998601 /* AIStateRush.h */,
 				18C3F850181BF20C00998601 /* AISystem.cpp */,
 				18C3F851181BF20C00998601 /* AISystem.h */,
-				18C3F852181BF20C00998601 /* Component.cpp */,
-				18C3F853181BF20C00998601 /* Component.h */,
-				18C3F854181BF20C00998601 /* Constant.h */,
-				18C3F855181BF20C00998601 /* Entity.cpp */,
-				18C3F856181BF20C00998601 /* Entity.h */,
-				18C3F857181BF20C00998601 /* EntityFactory.cpp */,
-				18C3F858181BF20C00998601 /* EntityFactory.h */,
-				18C3F859181BF20C00998601 /* EntityManager.cpp */,
-				18C3F85A181BF20C00998601 /* EntityManager.h */,
-				18C3F85B181BF20D00998601 /* GameObject.cpp */,
-				18C3F85C181BF20D00998601 /* GameObject.h */,
-				18C3F85D181BF20D00998601 /* GameOverScene.cpp */,
-				18C3F85E181BF20D00998601 /* GameOverScene.h */,
-				18C3F85F181BF20D00998601 /* GunComponent.cpp */,
-				18C3F860181BF20D00998601 /* GunComponent.h */,
-				18C3F861181BF20D00998601 /* GunSystem.cpp */,
-				18C3F862181BF20D00998601 /* GunSystem.h */,
-				18C3F863181BF20D00998601 /* HealthComponent.cpp */,
-				18C3F864181BF20D00998601 /* HealthComponent.h */,
-				18C3F865181BF20D00998601 /* HealthSystem.cpp */,
-				18C3F866181BF20D00998601 /* HealthSystem.h */,
-				18C3F867181BF20D00998601 /* HumanPlayer.cpp */,
-				18C3F868181BF20D00998601 /* HumanPlayer.h */,
-				18C3F869181BF20D00998601 /* MeleeComponent.cpp */,
-				18C3F86A181BF20D00998601 /* MeleeComponent.h */,
-				18C3F86B181BF20D00998601 /* MeleeSystem.cpp */,
-				18C3F86C181BF20D00998601 /* MeleeSystem.h */,
+			);
+			name = ai;
+			sourceTree = "<group>";
+		};
+		18BE56BA184CACA400384938 /* monster */ = {
+			isa = PBXGroup;
+			children = (
 				18C3F86D181BF20D00998601 /* Monster.cpp */,
 				18C3F86E181BF20D00998601 /* Monster.h */,
 				18C3F86F181BF20D00998601 /* MonsterComponent.cpp */,
 				18C3F870181BF20D00998601 /* MonsterComponent.h */,
-				18C3F871181BF20D00998601 /* MoveComponent.cpp */,
-				18C3F872181BF20D00998601 /* MoveComponent.h */,
-				18C3F873181BF20D00998601 /* MoveSystem.cpp */,
-				18C3F874181BF20D00998601 /* MoveSystem.h */,
 				18C3F875181BF20D00998601 /* MunchMonster.cpp */,
 				18C3F876181BF20D00998601 /* MunchMonster.h */,
-				18C3F877181BF20D00998601 /* Player.cpp */,
-				18C3F878181BF20D00998601 /* Player.h */,
-				18C3F879181BF20D00998601 /* PlayerComponent.cpp */,
-				18C3F87A181BF20D00998601 /* PlayerComponent.h */,
-				18C3F87B181BF20D00998601 /* PlayerSystem.cpp */,
-				18C3F87C181BF20D00998601 /* PlayerSystem.h */,
 				18C3F87D181BF20D00998601 /* QuirkMonster.cpp */,
 				18C3F87E181BF20D00998601 /* QuirkMonster.h */,
-				18C3F87F181BF20D00998601 /* RenderComponent.cpp */,
-				18C3F880181BF20D00998601 /* RenderComponent.h */,
-				18C3F881181BF20D00998601 /* SplashScene.cpp */,
-				18C3F882181BF20D00998601 /* SplashScene.h */,
-				18C3F883181BF20D00998601 /* System.cpp */,
-				18C3F884181BF20D00998601 /* System.h */,
-				18C3F885181BF20D00998601 /* TeamComponent.cpp */,
-				18C3F886181BF20D00998601 /* TeamComponent.h */,
 				18C3F887181BF20D00998601 /* ZapMonster.cpp */,
 				18C3F888181BF20D00998601 /* ZapMonster.h */,
-				18A2B65517F089D9009034E3 /* AppDelegate.h */,
-				18A2B65617F089D9009034E3 /* AppDelegate.cpp */,
-				18A2B65817F089D9009034E3 /* HelloWorldScene.h */,
-				18A2B65917F089D9009034E3 /* HelloWorldScene.cpp */,
-				18E8F56C182BBA100000F2DE /* PhysicsComponent.h */,
-				18E8F56D182BBA260000F2DE /* PhysicsComponent.cpp */,
-				18E8F56F182BDA280000F2DE /* PhysicsSystem.h */,
-				18E8F570182BDA980000F2DE /* PhysicsSystem.cpp */,
 			);
-			name = Classes;
+			name = monster;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2453,6 +2604,35 @@
 				18C3F8D7181BF97300998601 /* Sprites.pvr.ccz in Resources */,
 				18EA785118267CBF00296430 /* HelloWorld@2x.png in Resources */,
 				18354C78182A82F9000E2318 /* Default-568h@2x.png in Resources */,
+				18BCC4C3183F4F7D00BA3B31 /* Castle.jpg in Resources */,
+				18BCC4C4183F4F7D00BA3B31 /* aoe1.png in Resources */,
+				18BCC4C5183F4F7D00BA3B31 /* aoe2.png in Resources */,
+				18BCC4C6183F4F7D00BA3B31 /* bullet.png in Resources */,
+				18BCC4C7183F4F7D00BA3B31 /* button_sel.png in Resources */,
+				18BCC4C8183F4F7D00BA3B31 /* button.png in Resources */,
+				18BCC4C9183F4F7D00BA3B31 /* castle1_atk.png in Resources */,
+				18BCC4CA183F4F7D00BA3B31 /* castle1_def.png in Resources */,
+				18BCC4CB183F4F7D00BA3B31 /* castle2_atk.png in Resources */,
+				18BCC4CC183F4F7D00BA3B31 /* castle2_def.png in Resources */,
+				18BCC4CD183F4F7D00BA3B31 /* coin.png in Resources */,
+				18BCC4CE183F4F7D00BA3B31 /* explosion.png in Resources */,
+				18BCC4CF183F4F7D00BA3B31 /* explosion1.png in Resources */,
+				18BCC4D0183F4F7D00BA3B31 /* explosion2.png in Resources */,
+				18BCC4D1183F4F7D00BA3B31 /* munch1.png in Resources */,
+				18BCC4D2183F4F7D00BA3B31 /* munch2.png in Resources */,
+				18BCC4D3183F4F7D00BA3B31 /* quirk1.png in Resources */,
+				18BCC4D4183F4F7D00BA3B31 /* quirk2.png in Resources */,
+				18BCC4D5183F4F7D00BA3B31 /* separatorLine.png in Resources */,
+				18BCC4D6183F4F7D00BA3B31 /* separatorLine@2x.png in Resources */,
+				18BCC4D7183F4F7D00BA3B31 /* zap1.png in Resources */,
+				18BCC4D8183F4F7D00BA3B31 /* zap2.png in Resources */,
+				18BCC4D9183F4F7D00BA3B31 /* aoe1.plist in Resources */,
+				18BCC4DA183F4F7D00BA3B31 /* aoe2.plist in Resources */,
+				18BCC4DB183F4F7D00BA3B31 /* bullet.plist in Resources */,
+				18BCC4DC183F4F7D00BA3B31 /* explosion.plist in Resources */,
+				18BCC4DD183F4F7D00BA3B31 /* explosion1.plist in Resources */,
+				18BCC4DE183F4F7D00BA3B31 /* explosion2.plist in Resources */,
+				18BCC4DF183F4F7D00BA3B31 /* sprites.tps in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2764,8 +2944,14 @@
 				18C3F8AA181BF20D00998601 /* TeamComponent.cpp in Sources */,
 				18C3F8AB181BF20D00998601 /* ZapMonster.cpp in Sources */,
 				18C8686618290B0F007B2CCB /* BulletComponent.cpp in Sources */,
-				18E8F56E182BBA260000F2DE /* PhysicsComponent.cpp in Sources */,
-				18E8F571182BDA980000F2DE /* PhysicsSystem.cpp in Sources */,
+				18BCC4A4183F4F2A00BA3B31 /* ArmorHomeScene.cpp in Sources */,
+				18BCC4A5183F4F2A00BA3B31 /* CCLayerParent.cpp in Sources */,
+				18BCC4E9183F523E00BA3B31 /* TutorialMunchScene.cpp in Sources */,
+				18BCC4EA183F523E00BA3B31 /* TutorialQuirkScene.cpp in Sources */,
+				18BCC4EB183F523E00BA3B31 /* TutorialZapScene.cpp in Sources */,
+				18FD046418423F9000CC41C3 /* TutorialMunchQuirkScene.cpp in Sources */,
+				18FD046518423F9000CC41C3 /* TutorialQuirkZapScene.cpp in Sources */,
+				18FD046618423F9000CC41C3 /* TutorialZapMunchScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

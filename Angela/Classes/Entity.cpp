@@ -52,10 +52,9 @@ GunComponent* Entity::gun() {
 MonsterComponent* Entity::monster() {
     return (MonsterComponent*) entityManager->getComponentOfClass("MonsterComponent",this);
 }
-
-BulletComponent* Entity::bullet(){
-    return (BulletComponent*) entityManager->getComponentOfClass("BulletComponent",this);
-    
+BulletComponent* Entity::bullet()
+{
+	return (BulletComponent*) entityManager->getComponentOfClass("BulletComponent",this);
 }
 CCArray* Entity::getAllEntitiesOnTeam(int team,std::string className) {
     
@@ -66,9 +65,7 @@ CCArray* Entity::getAllEntitiesOnTeam(int team,std::string className) {
     for(UINT i=0;i< allEntities->count();i++){
 		Entity* entity=(Entity*) allEntities->objectAtIndex(i);
 		TeamComponent* curTeam = entity->team();
-        BulletComponent* curBullet = entity->bullet();
-        if(curBullet) continue;
-        if (curTeam && curTeam->team == team) {
+        if (team && curTeam->team == team) {
             retval->addObject(entity);
         }
     }
@@ -89,15 +86,15 @@ Entity* Entity::closestEntityOnTeam(int team) {
     allEntities->retain();
     //for (Entity* entity in allEntities) {
     for(UINT i=0;i< allEntities->count();i++){
-	Entity* entity=(Entity*) allEntities->objectAtIndex(i);
-        RenderComponent* otherRender = entity->render();
-        BulletComponent* curBullet = entity->bullet();
-        if(curBullet) continue;
-        float distance = ccpDistance(ourRender->node->getPosition(), otherRender->node->getPosition());
-        if (distance < closestEntityDistance || closestEntityDistance == -1) {
-            closestEntity = entity;
-            closestEntityDistance = distance;
-        }
+		Entity* entity=(Entity*) allEntities->objectAtIndex(i);
+		RenderComponent* otherRender = entity->render();
+		BulletComponent* otherBullet = entity->bullet();
+		if(otherBullet) continue;
+		  float distance = ccpDistance(ourRender->node->getPosition(), otherRender->node->getPosition());
+			if (distance < closestEntityDistance || closestEntityDistance == -1) {
+				closestEntity = entity;
+				closestEntityDistance = distance;
+			}
     }
     allEntities->release();
     return closestEntity;
@@ -117,15 +114,16 @@ CCArray* Entity::entitiesWithinRange(float range,int team) {
     allEntities->retain();
     CCArray* retval =CCArray::create();
   //  for (Entity* entity in allEntities) {
-       for(UINT i=0;i<allEntities->count();i++){
-           Entity* entity=(Entity*) allEntities->objectAtIndex(i);
-           RenderComponent* otherRender = entity->render();
-           BulletComponent* curBullet = entity->bullet();
-           if(curBullet) continue;
-           float distance = ccpDistance(ourRender->node->getPosition(), otherRender->node->getPosition());
-           if (distance < range) {
-            retval->addObject(entity);
-           }
+    for(UINT i=0;i<allEntities->count();i++){
+		Entity* entity=(Entity*) allEntities->objectAtIndex(i);
+	    	RenderComponent* otherRender = entity->render();
+	
+		BulletComponent* otherBullet = entity->bullet();
+		if(otherBullet) continue;
+	        float distance = ccpDistance(ourRender->node->getPosition(), otherRender->node->getPosition());
+	        if (distance < range) {
+	            retval->addObject(entity);
+	        }
     }
     allEntities->release();
     return retval;

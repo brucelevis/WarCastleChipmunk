@@ -58,12 +58,10 @@ void PlayerSystem::update(float dt) {
         // Handle coins
         static float COIN_DROP_INTERVAL = 1500;
         static float COINS_PER_INTERVAL = 5;
-         static float COINS_MAX = 95;
+		static float COINS_MAX = 95;
         if (time - player->lastCoinDrop > COIN_DROP_INTERVAL) {
             player->lastCoinDrop = time;
-            if (player->coins>COINS_MAX) {
-                break;
-            }
+			if(player->coins>COINS_MAX) break;
             player->coins += COINS_PER_INTERVAL;
         }
         
@@ -71,10 +69,10 @@ void PlayerSystem::update(float dt) {
         if (render && team) {
             if (player->attacking) {
                 CCString* spriteFrameName = CCString::createWithFormat("castle%d_atk.png", team->team);
-                render->node->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(spriteFrameName->getCString()));
+                ((CCSprite*)render->node)->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(spriteFrameName->getCString()));
             } else {
                 CCString* spriteFrameName =CCString::createWithFormat("castle%d_def.png", team->team);
-                 render->node->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(spriteFrameName->getCString()));
+                 ((CCSprite*)render->node)->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(spriteFrameName->getCString()));
                 }
         }
         
@@ -83,7 +81,7 @@ void PlayerSystem::update(float dt) {
             CCArray* movers = entity->getAllEntitiesOnTeam(team->team,"MoveComponent");
             //for (Entity * mover in movers) {   
             for(UINT i=0;i<movers->count();i++){ 
-                Entity* mover =(Entity* ) movers->objectAtIndex(i);
+				Entity* mover =(Entity* ) movers->objectAtIndex(i);
                 this->handleMover(mover,player->attacking);
             }
         }        

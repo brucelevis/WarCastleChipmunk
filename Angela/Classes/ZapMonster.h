@@ -8,7 +8,7 @@ class HelloWorldLayer;
 class ZapMonster:public Monster
 {
 public:
-bool create(int team,HelloWorld *layer);
+bool create(int team);
 };
 
 NS_CC_END

@@ -2,12 +2,12 @@
 
 USING_NS_CC;
 
-RenderComponent::RenderComponent(CCSprite* node)
+RenderComponent::RenderComponent(CCNode* node)
 {
 	this->node = node;
 	this->node->retain();
 }
-RenderComponent* RenderComponent::create(CCSprite *node)
+RenderComponent* RenderComponent::create(CCNode *node)
 {
 	RenderComponent *pRet = new RenderComponent(node); \
 	if (pRet ) \

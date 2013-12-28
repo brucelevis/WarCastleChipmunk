@@ -1,9 +1,9 @@
 #include "QuirkMonster.h"
 USING_NS_CC;
-QuirkMonster::QuirkMonster(int team,HelloWorld *layer)
+QuirkMonster::QuirkMonster(int team)
 {
 	CCString * spriteFrameName = CCString::createWithFormat("quirk%d.png", team);
-    if (create(spriteFrameName,layer)) {
+    if (create(spriteFrameName)) {
         this->curHp = 5;
         this->maxHp = 5;
         this->team = team;

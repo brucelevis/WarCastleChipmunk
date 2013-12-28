@@ -1,6 +1,5 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
-//#include "GameOverScene.h"
+#include "Scenes.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -22,15 +21,48 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pDirector->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
-    pDirector->setAnimationInterval(1.0 / 60);
+    pDirector->setAnimationInterval(1.0 / 30);
 
     // create a scene. it's an autorelease object
-    CCScene *pScene = HelloWorld::scene();
+    CCScene *pScene = ArmorHome::scene();
 	
 
     // run
     pDirector->runWithScene(pScene);
 
+    CCSize screenSize = CCEGLView::sharedOpenGLView()->getFrameSize();
+    CCFileUtils *pFileUtils = CCFileUtils::sharedFileUtils();
+    std::vector<std::string> searchPaths;
+    
+    CCSize designSize = CCSizeMake(480, 320);
+    CCSize resourceSize;
+    
+    // if the device is iPad
+    if (screenSize.height >= 768) {
+        searchPaths.push_back("hd");
+        searchPaths.push_back("sd");
+        
+        resourceSize = CCSizeMake(1024, 768);
+        designSize = CCSizeMake(1024, 768);
+    }
+    // if the device is iPhone
+    else{
+        // for retina iPhone
+        if (screenSize.height > 320) {
+            searchPaths.push_back("hd");
+            searchPaths.push_back("sd");
+            resourceSize = CCSizeMake(960, 640);
+        }
+        else{
+            searchPaths.push_back("sd");
+            resourceSize = CCSizeMake(480, 320);
+        }
+    }
+    searchPaths.push_back("WhackAMoleSounds");
+    pFileUtils->setSearchPaths(searchPaths);
+    pDirector->setContentScaleFactor(resourceSize.width / designSize.width);
+    
+    CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, kResolutionFixedWidth);
     return true;
 }
 

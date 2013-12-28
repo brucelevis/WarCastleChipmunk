@@ -2,12 +2,13 @@
 #include "cocos2d.h"
 #include "Component.h"
 #include "Entity.h"
-
+//#include "Box2d.h"
 NS_CC_BEGIN
 
 class EntityManager :public CCObject
 {
 public:
+
 	CCArray* _entities;
     CCDictionary* _componentsByClass;
     uint32_t _lowestUnassignedEid;

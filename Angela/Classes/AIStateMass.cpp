@@ -12,6 +12,7 @@ CCString *AIStateMass::name() {
 
 void AIStateMass::enter() {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("mass.wav");
+    CCLog("Mass State");
 }
 
  void AIStateMass::updateEntity(Entity *entity,AISystem *system) {
@@ -23,10 +24,14 @@ void AIStateMass::enter() {
     
     CCArray* enemies = entity->entitiesWithinRange(200,OPPOSITE_TEAM(team->team));
     if (enemies->count() > 0) {
-        system->changeStateForEntity(entity,new AIStateDefend());
+        system->changeStateForEntity(entity,AIStateDefend::create());
+        CCLog("Defend State");
         return;
     } else if (system->aiTotalValue + player->coins >= COST_MUNCH + COST_ZAP * 2) {
-        system->changeStateForEntity(entity, new AIStateCounter());
+		//AIState *state = AIStateCounter::create();
+		//state->retain();
+        system->changeStateForEntity(entity,AIStateCounter::create());
+        CCLog("Counter State");
         return;
     }
     

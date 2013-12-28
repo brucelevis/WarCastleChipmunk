@@ -2,11 +2,11 @@
 
 USING_NS_CC;
 
-bool ZapMonster::create(int team,HelloWorld *layer)
+bool ZapMonster::create(int team)
 {
 
 	CCString* spriteFrameName = CCString::createWithFormat("zap%d.png", team);
-     if (GameObject::create(spriteFrameName,layer)) {
+     if (GameObject::create(spriteFrameName)) {
          curHp = 10;
          maxHp = 10;
          team = team;

@@ -49,8 +49,8 @@ void AISystem::update(float dt)
     CCArray* aiMonsters = aiEntity->getAllEntitiesOnTeam(aiTeam->team,"MonsterComponent");
    // for (Entity * aiMonster in aiMonsters) {
    	for(UINT i=0;i<aiMonsters->count();++i){
- 		Entity* humanMonster = (Entity*)aiMonsters->objectAtIndex(i);
- 		MonsterComponent* monster = humanMonster->monster();
+ 		Entity* aiMonster = (Entity*)aiMonsters->objectAtIndex(i);
+ 		MonsterComponent* monster = aiMonster->monster();
 		if (monster->monsterType == MonsterTypeQuirk) {
             this->aiQuirkValue += COST_QUIRK;
         } else if (monster->monsterType == MonsterTypeZap) {
@@ -65,12 +65,15 @@ void AISystem::update(float dt)
 }
 
 void AISystem::changeStateForEntity(Entity *entity,AIState* state) {
-    AIComponent* ai = entity->ai();
+	AIComponent* ai = entity->ai();
     if (!ai) return;
-    
+	
+	
     ai->state->exit();
-    ai->state = state;
-    ai->state->enter();
+    ai->state->release();
+	ai->state = state;
+    ai->state->retain();
+	ai->state->enter();
 }
 
 void AISystem::spawnQuirkForEntity(Entity *entity) {

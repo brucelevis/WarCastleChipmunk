@@ -10,7 +10,7 @@ class HumanPlayer:public Player
 {
 public:
 
-bool create(HelloWorld *layer);
+bool create();
 void setAttacking(bool attacking);
 };
 

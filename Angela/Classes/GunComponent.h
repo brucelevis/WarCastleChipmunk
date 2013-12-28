@@ -15,6 +15,7 @@ public:
  ~GunComponent();
  CCString* ClassName();
  static GunComponent* create(float range,float damage,float damageRate,CCString *sound);
+
 };
 
 NS_CC_END

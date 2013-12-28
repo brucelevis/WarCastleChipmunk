@@ -2,11 +2,10 @@
 
 USING_NS_CC;
 
-bool AIPlayer::create(HelloWorld *layer)
+bool AIPlayer::create()
 {
-    if (Player::create(CCString::create("castle2_def.png") ,layer)) {
+    if (Player::create(CCString::create("castle2_def.png") )) {
         team = 2;
-        //_currentState = [[AIStateMass alloc] init];
     }
     return true;
 }

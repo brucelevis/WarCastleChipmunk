@@ -159,7 +159,7 @@ void Splash::update(float dt)
 			_monstersDestroyed++;
 			if(_monstersDestroyed>30)
 			{
-				CCScene *gameover = GameOverLayer::scene(true);
+				CCScene *gameover = GameOverLayer::scene(true,1);
 				CCDirector::sharedDirector()->replaceScene(gameover);
 			}
 		}

@@ -12,7 +12,7 @@ public:
 	
 	int coins;
 	double lastCoinDrop;
-	bool create(CCString* spriteFrameName,HelloWorld *layer);
+	bool create(CCString* spriteFrameName);
 };
 
 NS_CC_END

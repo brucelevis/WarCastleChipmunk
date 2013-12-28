@@ -7,7 +7,7 @@ class HelloWorldLayer;
 class QuirkMonster:public Monster
 {
 public:
-QuirkMonster(int team,HelloWorld *layer);
+QuirkMonster(int team);
 
 };
 

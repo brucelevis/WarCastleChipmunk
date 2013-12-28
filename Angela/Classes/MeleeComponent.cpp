@@ -2,7 +2,7 @@
 
 USING_NS_CC;
 
-MeleeComponent::MeleeComponent(float damage,bool destroySelf,float damageRate,bool aoe, CCString *sound) {
+MeleeComponent::MeleeComponent(float damage,bool destroySelf,float damageRate,bool aoe, CCString *sound,bool notBullet) {
  
     this->damage = damage;
     this->destroySelf = destroySelf;
@@ -10,11 +10,12 @@ MeleeComponent::MeleeComponent(float damage,bool destroySelf,float damageRate,bo
     this->aoe = aoe;
     this->sound = sound;
     this->sound->retain();
+    this->notBullet = notBullet;
  }
 
-MeleeComponent* MeleeComponent::create(float damage,bool destroySelf,float damageRate,bool aoe, CCString *sound)
+MeleeComponent* MeleeComponent::create(float damage,bool destroySelf,float damageRate,bool aoe, CCString *sound,bool notBullet)
 {
-	MeleeComponent *pRet = new MeleeComponent(damage, destroySelf, damageRate, aoe, sound); \
+	MeleeComponent *pRet = new MeleeComponent(damage, destroySelf, damageRate, aoe, sound,notBullet); \
 	if (pRet ) \
 	{ \
 		pRet->autorelease(); \

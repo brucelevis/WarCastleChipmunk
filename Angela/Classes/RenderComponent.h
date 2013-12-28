@@ -7,10 +7,10 @@ NS_CC_BEGIN
 class RenderComponent:public Component
 {
 public:
-	CCSprite *node;
+	CCNode *node;
 public:
-	RenderComponent(CCSprite *node);
-	static RenderComponent* create(CCSprite *node);
+	RenderComponent(CCNode *node);
+	static RenderComponent* create(CCNode *node);
   		~RenderComponent();
 	CCString* ClassName();
 };

@@ -2,9 +2,9 @@
 
 USING_NS_CC;
 
-bool HumanPlayer::create(HelloWorld *layer)
+bool HumanPlayer::create()
 {
-	if(Player::create(CCString::create("castle1_def.png"),layer)){
+	if(Player::create(CCString::create("castle1_def.png"))){
 		team =1 ;
 	}
 	return true;
