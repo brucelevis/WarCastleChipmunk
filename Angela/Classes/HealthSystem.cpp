@@ -9,11 +9,8 @@ HealthSystem::HealthSystem(EntityManager *entityManager,EntityFactory* entityFac
 }
 void HealthSystem::update(float dt) {
  
-    // 1
+
     CCArray * entities =this->entityManager->getAllEntitiesPosessingComponentOfClass("HealthComponent");
-	/*CCObject *_object;
-    CCARRAY_FOREACH (entities,_object) {
-		Entity* entity = (Entity* ) _object;*/
 	for(UINT i = 0;i<entities->count();i++){
 		Entity* entity = (Entity* )entities->objectAtIndex(i);
 		entity->retain();
@@ -52,33 +49,77 @@ void HealthSystem::draw() {
 	        
 		if ( !health || !render) continue;
 	 
-	        int sX = render->node->getPosition().x - render->node->getContentSize().width/2;
-	        int eX = render->node->getPosition().x + render->node->getContentSize().width/2;
-	        int actualY = render->node->getPosition().y + render->node->getContentSize().height/2;
+	        int sX = render->node->getPosition().x - render->node->getContentSize().width*0.35;
+	        int eX = render->node->getPosition().x + render->node->getContentSize().width*0.35;
+	        int actualY = render->node->getPosition().y + render->node->getContentSize().height*0.55;
 	 
-	        static int maxColor = 200;
-	        static int colorBuffer = 55;
+	        //static int maxColor = 200;
+	        //static int colorBuffer = 0x99;
 			float percentage = ((float) health->curHP) / ((float) health->maxHP);
+			//CCLog("Health %d,%d",health->curHP, health->maxHP);
 	        int actualX = ((eX-sX) * percentage) + sX;
-	        int amtRed = colorBuffer;
-	        int amtGreen = maxColor+colorBuffer;
-	 
-	        glLineWidth(5);
-	        ccDrawColor4B(amtRed,amtGreen,0,255);
+	        //int amtRed = colorBuffer;
+	        //int amtGreen = percentage*0xff;
+
+			glLineWidth(1);
+	        ccDrawColor4B(189,230,63,255);
+	        ccDrawLine(ccp(sX-1, actualY), ccp(sX, actualY));
+
+	        glLineWidth(3);
+	        ccDrawColor4B(189,230,63,255);
 	        ccDrawLine(ccp(sX, actualY), ccp(actualX, actualY));
         
-            amtRed = maxColor + colorBuffer;
-            amtGreen = colorBuffer;
-            ccDrawColor4B(amtRed,amtGreen,0,255);
-            ccDrawLine(ccp(actualX, actualY), ccp(eX, actualY));
-        
+			if(actualX<eX)
+			{
+				//amtRed = maxColor + colorBuffer;
+				glLineWidth(3);
+				ccDrawColor4B(182,59,64,255);
+				ccDrawLine(ccp(actualX, actualY), ccp(eX, actualY));
+ 
+				glLineWidth(1);
+				ccDrawColor4B(182,59,64,255);
+				ccDrawLine(ccp(eX, actualY), ccp(eX+1, actualY));
+			}
+			else
+			{
+				glLineWidth(1);
+				ccDrawColor4B(189,230,63,255);
+				ccDrawLine(ccp(eX, actualY), ccp(eX+1, actualY));
+			}
      }
 }
 void HealthSystem::clean(CCNode* node,void* entity)
 {
-	entityFactory->createExplosion(((Entity*)entity)->team()->team,node->getPosition());
+	//entityFactory->createExplosion(((Entity*)entity)->team()->team,node->getPosition());
+	entityFactory->createEffect(EffectTypeExplosion,node->getPosition());
 	node->removeFromParentAndCleanup(true);
-	CCLog("I am not in good health, Removing entity:%d",((Entity*)entity)->_eid);
+	Entity* _entity = ((Entity*)entity);
+	TeamComponent* team = _entity->team();
+	MonsterComponent* monster = _entity->monster();
+	if(monster)
+	{
+		values[team->team-1][(int)monster->monsterType] -= monster->monster->deck->price;
+		//CCLog("%d team: %d stat",team->team,values[team->team-1][(int)monster->monsterType]);
+	}
+	CCArray* entities = entityManager->getAllEntitiesPosessingComponentOfClass("PlayerComponent");
+	CCObject* object = NULL;
+	CCARRAY_FOREACH(entities,object){    
+		Entity* _entity = (Entity*) object;
+       	 TeamComponent* team = _entity->team();
+		if(((Entity*)entity)->team()->team == team->team)
+		{
+			PlayerComponent* player =_entity->player();
+			MonsterComponent* monster = ((Entity*)entity)->monster();
+			if(player &&monster)
+			{
+				player->people -= monster->monster->deck->fight.FoodCap;	
+				player->RefreshOverload();
+			}
+			break;
+		}
+	}
+
+
 	this->entityManager->removeEntity((Entity*)entity);
 
 }

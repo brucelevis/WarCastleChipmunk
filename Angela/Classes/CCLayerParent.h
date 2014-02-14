@@ -7,6 +7,7 @@
 #include "RenderComponent.h"
 #include "HealthComponent.h"
 #include "GunComponent.h"
+#include "MonsterComponent.h"
 
 #include "Constant.h"
 #include "AIState.h"
@@ -22,7 +23,10 @@
 #include "AISystem.h"
 
 #include "CCLayerParent.h"
+#include "CCControlPotentiometer.h"
+
 NS_CC_BEGIN
+USING_NS_CC_EXT;
 
 class Player;
 class CCLayerParent: public CCLayer
@@ -35,13 +39,19 @@ public:
 	CCLabelBMFont *_stateLabel;
 	CCLabelBMFont *_coin1Label;
 	CCLabelBMFont *_coin2Label;
-
+	CCLabelBMFont *_people1Label;
+	CCLabelBMFont *_people2Label;
 	CCMenuItemSprite* quirkButton;
 	CCMenuItemSprite* zapButton;
 	CCMenuItemSprite* munchButton;
+	CCMenuItemSprite* dragonButton;
+	CCMenuItemSprite* phoenixButton;
+	CCControlPotentiometer* potentio;
+
 
 	CCMenu* menu ;
 	bool _gameOver;
+	bool _cooldown;
 	Entity* _aiPlayer;
 	Entity* _humanPlayer;
 	EntityManager* _entityManager;
@@ -54,15 +64,15 @@ public:
     GunSystem* _gunSystem;
 	AISystem* _aiSystem;
 	CCLayerParent();
+
+	static CCScene* scene();
+	bool init();
+	CREATE_FUNC(CCLayerParent);
+
 	void basicSetup();
 	void addPlayers();
-
+	CCMenuItemSprite * getSpriteButton(int tag,int price,const char* frameName,SEL_MenuHandler selector);
 	void quirkButtonTapped(CCObject* obj) ;
-
-	void zapButtonTapped(CCObject* obj)  ;
-
-	void munchButtonTapped(CCObject* obj) ;
-
 	void update(float delta);
 	void restartTapped(CCObject* obj);
 	void showRestartMenu(bool won);
@@ -73,7 +83,10 @@ public:
 	void registerWithTouchDispatcher();
 	
 	bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
-
+    void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+	void shopButtonTapped(CCObject* obj) ;
+	void homeButtonTapped(CCObject* obj) ;
+	void helpButtonTapped(CCObject* obj) ;
 };
 
 NS_CC_END

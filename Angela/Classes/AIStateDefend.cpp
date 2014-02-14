@@ -19,27 +19,35 @@ void AIStateDefend::enter() {
     AIComponent* ai = entity->ai();
     if (!team || !player || !ai) return;
     
-    CCArray* enemies = entity->entitiesWithinRange(200,OPPOSITE_TEAM(team->team));
-    if (enemies->count() == 0) {
-		//AIState *state = AIStateRush::create();
-		//state->retain();
-        system->changeStateForEntity(entity, AIStateRush::create());
-        CCLog("Rush state");
+	int aitotal = 0;
+	int playertotal = 0;
+	for(int i = BUILDING_NUM; i<BUILDING_NUM+SPRITE_NUM;i++)
+	{
+		playertotal += values[0][i];
+		aitotal += values[1][i];
+	}
+
+    CCArray* enemies = entity->entitiesWithinRange(decks[0].fight.Range,OPPOSITE_TEAM(team->team));
+    if (enemies->count() == 0||playertotal<aitotal) {
+		system->changeStateForEntity(entity, AIStateRush::create());
+        //CCLog("Rush state");
         return;
     }    
     player->attacking = false;
+	//generate next monster
+	for(int i = BUILDING_NUM; i<SPRITE_NUM+BUILDING_NUM;i++)
+	{
+		if(decks[i].selection && values[0][i] > values[1][i] && player->coins > decks[i].price)
+		{
+			int j = 0;
+			while(!decks[(i+j)%SPRITE_NUM +1].selection)
+				j++;
+			if(decks[(i+j)%SPRITE_NUM +1].selection)
+				system->spawnMonsterForEntity(MonsterType((i+j)%SPRITE_NUM +1),entity);
+			break;
+		}
 
-    if (system->aiZapValue < system->humanZapValue && player->coins > COST_ZAP) {
-       system->spawnZapForEntity(entity);
-    } else if (system->aiMunchValue < system->humanMunchValue && player->coins > COST_MUNCH) {
-         system->spawnMunchForEntity(entity);
-    } else if (system->aiQuirkValue < system->humanQuirkValue && player->coins > COST_QUIRK) {
-         system->spawnQuirkForEntity(entity);
-    } else if (system->humanTotalValue == 0) {
-        while (player->coins > COST_ZAP ) {
-             //system->spawnQuirkForEntity(entity);
-             system->spawnZapForEntity(entity);
-        }
-    }
+	}
+
 
 }

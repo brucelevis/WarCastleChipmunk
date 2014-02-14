@@ -28,11 +28,11 @@ void GunSystem::update(float dt) {
         
         float distance = ccpDistance(render->node->getPosition(), enemyRender->node->getPosition());
         static float WIGGLE_ROOM = 5;
-        if (abs(distance) <= (gun->range + WIGGLE_ROOM) && GetTickCount() - gun->lastDamageTime > gun->damageRate * 1000) {
-            
-            //CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(gun->sound->getCString());
-            
-            gun->lastDamageTime = GetTickCount();
+        if (abs(distance) <= (gun->deck->fight.Range*SPEEDRATIO + WIGGLE_ROOM) && GetTickCount() - gun->_damage->lastDamageTime > gun->deck->fight.FireRate * 1000) {
+#if SOUND           
+            CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(gun->deck->sound);
+#endif            
+            gun->_damage->lastDamageTime = GetTickCount();
             
             Entity* laser =this->entityFactory->createLaserWithTeam(team->team);
             RenderComponent* laserRender = laser->render();
@@ -40,11 +40,11 @@ void GunSystem::update(float dt) {
             if (!laserRender || !laserMelee) continue;
             
             laserRender->node->setPosition ( render->node->getPosition());
-            laserMelee->damage = gun->damage;
+            laserMelee->deck->fight.Damage = gun->deck->fight.Damage;
             
             CCPoint direction = ccpNormalize(ccpSub(enemyRender->node->getPosition(), render->node->getPosition()));
-            static float laserPointsPerSecond = 100;
-            static float laserDistance = 1000;
+			float laserPointsPerSecond = gun->deck->fight.bulletVelocity*2;
+            float laserDistance = gun->deck->fight.Range*1.5;
             
             CCPoint target = ccpMult(direction, laserDistance);
             float duration = laserDistance / laserPointsPerSecond;

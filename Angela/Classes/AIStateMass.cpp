@@ -12,7 +12,7 @@ CCString *AIStateMass::name() {
 
 void AIStateMass::enter() {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("mass.wav");
-    CCLog("Mass State");
+    //CCLog("Mass State");
 }
 
  void AIStateMass::updateEntity(Entity *entity,AISystem *system) {
@@ -22,16 +22,28 @@ void AIStateMass::enter() {
     AIComponent* ai = entity->ai();
     if (!team || !player || !ai) return;
     
-    CCArray* enemies = entity->entitiesWithinRange(200,OPPOSITE_TEAM(team->team));
+    CCArray* enemies = entity->entitiesWithinRange(decks[0].fight.Range,OPPOSITE_TEAM(team->team));
     if (enemies->count() > 0) {
         system->changeStateForEntity(entity,AIStateDefend::create());
-        CCLog("Defend State");
+        //CCLog("Defend State");
         return;
-    } else if (system->aiTotalValue + player->coins >= COST_MUNCH + COST_ZAP * 2) {
+    }
+	int total = 0;
+	for(int i = BUILDING_NUM; i<BUILDING_NUM+SPRITE_NUM;i++)
+	{
+		if(decks[i].selection)
+			total += decks[i].price;
+	}
+	if (player->coins > total) {
 		//AIState *state = AIStateCounter::create();
 		//state->retain();
-        system->changeStateForEntity(entity,AIStateCounter::create());
-        CCLog("Counter State");
+        //system->changeStateForEntity(entity,AIStateCounter::create());
+        //CCLog("Counter State");
+		for(int i = BUILDING_NUM; i<BUILDING_NUM+SPRITE_NUM;i++)
+		{
+			if(decks[i].selection)
+				system->spawnMonsterForEntity(MonsterType(i),entity);
+		}
         return;
     }
     

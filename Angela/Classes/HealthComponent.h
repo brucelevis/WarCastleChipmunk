@@ -10,8 +10,8 @@ public:
 	float maxHP;
 	bool alive;
 	HealthComponent(float curHP,float maxHP);	
-static HealthComponent* create(float curHP,float maxHP);
-~HealthComponent();
+	static HealthComponent* create(float curHP,float maxHP);
+	~HealthComponent();
 	CCString* ClassName();
 };
 

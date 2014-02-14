@@ -52,13 +52,13 @@ CCControlPotentiometer* CCControlPotentiometer::create(const char* backgroundFil
     if (pRet != NULL)
     {
         // Prepare track for potentiometer
-        CCSprite *backgroundSprite      = CCSprite::create(backgroundFile);
+        CCSprite *backgroundSprite      = CCSprite::createWithSpriteFrameName(backgroundFile);
 
         // Prepare thumb for potentiometer
-        CCSprite *thumbSprite           = CCSprite::create(thumbFile);
+        CCSprite *thumbSprite           = CCSprite::createWithSpriteFrameName(thumbFile);
 
         // Prepare progress for potentiometer
-        CCProgressTimer *progressTimer  = CCProgressTimer::create(CCSprite::create(progressFile));
+        CCProgressTimer *progressTimer  = CCProgressTimer::create(CCSprite::createWithSpriteFrameName(progressFile));
         //progressTimer.type              = kCCProgressTimerTypeRadialCW;
         if (pRet->initWithTrackSprite_ProgressTimer_ThumbSprite(backgroundSprite, progressTimer, thumbSprite))
         {

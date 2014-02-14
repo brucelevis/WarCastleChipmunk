@@ -4,13 +4,14 @@
 
 NS_CC_BEGIN
 
-class HelloWorld;
+
 
 class Player:public GameObject
 {
 public:
-	
-	int coins;
+	//int people;
+	//int coins;
+
 	double lastCoinDrop;
 	bool create(CCString* spriteFrameName);
 };

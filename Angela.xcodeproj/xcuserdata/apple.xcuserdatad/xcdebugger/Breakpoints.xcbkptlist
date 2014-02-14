@@ -37,7 +37,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "80"
          endingLineNumber = "80"
-         landmarkName = "EntityManager::addComponent(Component* component,Entity* entity)"
+         landmarkName = "EntityManager::removeEntity(Entity *entity)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -58,12 +58,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Angela/Classes/CCLayerParent.cpp"
-         timestampString = "406998397.323626"
+         timestampString = "413996653.035788"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "329"
-         endingLineNumber = "329"
-         landmarkName = "CCLayerParent::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)"
+         startingLineNumber = "353"
+         endingLineNumber = "353"
+         landmarkName = "CCLayerParent::update(float delta)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -84,24 +84,22 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Angela/Classes/PlayerSystem.cpp"
-         timestampString = "406805592.209821"
+         timestampString = "409903565.09052"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "48"
-         endingLineNumber = "48"
-         landmarkName = "PlayerSystem::update(float dt)"
-         landmarkType = "5">
+         startingLineNumber = "50"
+         endingLineNumber = "50">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Angela/Classes/ArmorHomeScene.cpp"
-         timestampString = "406867619.720859"
+         timestampString = "413996291.096156"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "96"
-         endingLineNumber = "96"
+         startingLineNumber = "97"
+         endingLineNumber = "97"
          landmarkName = "ArmorHome::basicSetup()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -110,12 +108,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Angela/Classes/CCLayerParent.cpp"
-         timestampString = "406998397.323626"
+         timestampString = "413996653.035788"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "242"
-         endingLineNumber = "242"
-         landmarkName = "CCLayerParent::showRestartMenu(bool won)"
+         startingLineNumber = "266"
+         endingLineNumber = "266"
+         landmarkName = "CCLayerParent::addPlayers()"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -123,12 +121,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Angela/Classes/CCLayerParent.cpp"
-         timestampString = "406998397.323626"
+         timestampString = "413996653.035788"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "242"
-         endingLineNumber = "242"
-         landmarkName = "CCLayerParent::showRestartMenu(bool won)"
+         startingLineNumber = "266"
+         endingLineNumber = "266"
+         landmarkName = "CCLayerParent::addPlayers()"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -219,6 +217,201 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "12"
          endingLineNumber = "12">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/SplashScene.cpp"
+         timestampString = "413996514.501748"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "145"
+         endingLineNumber = "145"
+         landmarkName = "Splash::basicSetup()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/MoveSystem.cpp"
+         timestampString = "409902427.872458"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
+         landmarkName = "MoveSystem::update(float dt)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/PlayerSystem.cpp"
+         timestampString = "409903308.874612"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "16"
+         endingLineNumber = "16"
+         landmarkName = "PlayerSystem::handleMover(Entity *mover,bool attacking)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/AppDelegate.cpp"
+         timestampString = "412081807.03704"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "15"
+         endingLineNumber = "15"
+         landmarkName = "AppDelegate::applicationDidFinishLaunching()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/ios/AppController.mm"
+         timestampString = "412081843.370337"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "42"
+         endingLineNumber = "42"
+         landmarkName = "-application:didFinishLaunchingWithOptions:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/EntityFactory.cpp"
+         timestampString = "412773539.190491"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "52"
+         endingLineNumber = "52"
+         landmarkName = "EntityFactory::createHumanPlayer()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/EntityFactory.cpp"
+         timestampString = "412773539.190491"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "99"
+         endingLineNumber = "99"
+         landmarkName = "EntityFactory::createMonsterWithTeam(MonsterType monsterType,int team)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/EntityFactory.cpp"
+         timestampString = "412773539.190491"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "86"
+         endingLineNumber = "86"
+         landmarkName = "EntityFactory::createMonsterWithTeam(MonsterType monsterType,int team)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/EntityFactory.cpp"
+         timestampString = "412773539.190491"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "85"
+         endingLineNumber = "85"
+         landmarkName = "EntityFactory::createMonsterWithTeam(MonsterType monsterType,int team)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/ArmorHomeScene.cpp"
+         timestampString = "413902457.310223"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "48"
+         endingLineNumber = "48"
+         landmarkName = "ArmorHome::basicSetup()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/AppDelegate.cpp"
+         timestampString = "413902915.834221"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "21"
+         endingLineNumber = "21"
+         landmarkName = "AppDelegate::applicationDidFinishLaunching()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/Classes/ArmorHomeScene.cpp"
+         timestampString = "413996291.096156"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "134"
+         endingLineNumber = "134"
+         landmarkName = "ArmorHome::basicSetup()"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/libs/cocos2dx/sprite_nodes/CCSpriteBatchNode.cpp"
+         timestampString = "413987752.405006"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "598"
+         endingLineNumber = "598"
+         landmarkName = "CCSpriteBatchNode::appendChild(CCSprite* sprite)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/libs/cocos2dx/textures/CCTextureAtlas.cpp"
+         timestampString = "413987796.750374"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "166"
+         endingLineNumber = "166"
+         landmarkName = "CCTextureAtlas::initWithTexture(CCTexture2D *texture, unsigned int capacity)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Angela/libs/cocos2dx/textures/CCTextureAtlas.cpp"
+         timestampString = "413987920.492984"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "163"
+         endingLineNumber = "163"
+         landmarkName = "CCTextureAtlas::initWithTexture(CCTexture2D *texture, unsigned int capacity)"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

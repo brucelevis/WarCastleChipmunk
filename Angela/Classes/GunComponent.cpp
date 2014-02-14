@@ -25,6 +25,28 @@ GunComponent* GunComponent::create(float range,float damage,float damageRate,CCS
 		return NULL; \
 	} \
 }
+
+GunComponent::GunComponent(Deck* deck,Damage* _damage)
+{
+	this->deck = deck;
+	this->_damage = _damage;
+}
+
+GunComponent* GunComponent::create(Deck* deck,Damage* _damage)
+{
+	GunComponent *pRet = new GunComponent(deck,_damage); \
+	if (pRet ) \
+	{ \
+		pRet->autorelease(); \
+		return pRet; \
+	} \
+	else \
+	{ \
+		delete pRet; \
+		pRet = NULL; \
+		return NULL; \
+	} \
+}
  GunComponent::~GunComponent()
 {
 	this->sound->release();

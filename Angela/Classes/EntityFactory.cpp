@@ -39,94 +39,84 @@ EntityFactory::~EntityFactory()
 
 Entity* EntityFactory::createHumanPlayer()
 {
-	CCSprite* sprite = CCSprite::createWithSpriteFrameName("castle1_def.png");
+    float _rate = 1;
+    if(log(PAIDRATE)>0)
+    {
+       if(log(PAIDRATE)>PAIDRATE/10)
+           _rate = 1+PAIDRATE/10;
+        else
+            _rate=1+log(PAIDRATE);
+    }
+	CCSprite* sprite = CCSprite::createWithSpriteFrameName(airplanes[0]);
+	sprite->setZOrder(-1);
 	_batchNode->addChild(sprite);
+	Deck* deck = &(decks[0]);
 
 	Entity* entity = _entityManager->createEntity();
 	_entityManager->addComponent(RenderComponent::create(sprite),entity);
-	_entityManager->addComponent(HealthComponent::create(200,200),entity);
+	_entityManager->addComponent(HealthComponent::create(deck->fight.HitPoint*_rate,deck->fight.HitPoint*_rate),entity);
 	_entityManager->addComponent(TeamComponent::create(1),entity);
 	_entityManager->addComponent(PlayerComponent::create(),entity);
-	_entityManager->addComponent(GunComponent::create(200,5,2.0,CCString::create("pew.wav") ),entity);
-	//_entityManager->addComponent(PhysicsComponent::create(entity,sprite,_world),entity);
+
+	Damage *damage = new Damage();
+	_entityManager->addComponent(GunComponent::create(deck,damage),entity);
 	return entity;
 }
 		
 Entity* EntityFactory::createAIPlayer()
 {
-	CCSprite * sprite = CCSprite::createWithSpriteFrameName("castle2_def.png");
+	CCSprite * sprite = CCSprite::createWithSpriteFrameName(airplanes[g_level%5]);
+	sprite->setZOrder(-1);
 	_batchNode->addChild(sprite);
+	Deck* deck = &(decks[0]);
 
 	Entity * entity = _entityManager->createEntity();
 	_entityManager->addComponent(RenderComponent::create(sprite),entity);
-	_entityManager->addComponent(HealthComponent::create(200,200),entity);
+	_entityManager->addComponent(HealthComponent::create(deck->fight.HitPoint,deck->fight.HitPoint),entity);
 	_entityManager->addComponent(TeamComponent::create(2),entity);
 	_entityManager->addComponent(PlayerComponent::create(),entity);
-	_entityManager->addComponent(GunComponent::create(200,5,2.0,CCString::create("pew.wav") ),entity);
+	Damage *damage = new Damage();
+	_entityManager->addComponent(GunComponent::create(deck,damage),entity);
 	_entityManager->addComponent(AIComponent::create(AIStateMass::create()),entity);
 	return entity;
 
 }
-Entity* EntityFactory::createQuirkMonsterWithTeam(int team)
+Entity* EntityFactory::createMonsterWithTeam(MonsterType monsterType,int team)
 {
-       CCString* spriteFrameName = CCString::createWithFormat("quirk%d.png", team);
-	CCSprite * sprite = CCSprite::createWithSpriteFrameName(spriteFrameName->getCString());
-	_batchNode->addChild(sprite);
+//	float _rate = team==1?(log(PAIDRATE)>PAIDRATE/10?1+PAIDRATE/10:1+log(PAIDRATE)):1;
+    float _rate = 1;
+    if(log(PAIDRATE)>0 && team==1)
+    {
+        if(log(PAIDRATE)>PAIDRATE/10)
+            _rate = 1+PAIDRATE/10;
+        else
+            _rate=1+log(PAIDRATE);
+    }
 
+	MonsterComponent* monster = MonsterComponent::create(monsterType,team);
+	CCSprite * sprite = CCSprite::createWithSpriteFrameName(monster->monster->deck->atlas[team-1]);
+	_batchNode->addChild(sprite);
+	Deck* deck = monster->monster->deck;
 	Entity * entity = _entityManager->createEntity();
 	_entityManager->addComponent(RenderComponent::create(sprite),entity);
-	_entityManager->addComponent(HealthComponent::create(5,5),entity);
+	_entityManager->addComponent(HealthComponent::create(deck->fight.HitPoint*_rate,deck->fight.HitPoint*_rate),entity);
 
 	// Add to bottom of createQuirkMonster before the return
-	_entityManager->addComponent(MoveComponent::create(ccp(200, 200),100,100),entity);
+	_entityManager->addComponent(MoveComponent::create(ccp(200, 200),deck->fight.maxVelocity*_rate,ACCELERATE_MAX),entity);
 	_entityManager->addComponent(TeamComponent::create(team),entity);
-	_entityManager->addComponent(MeleeComponent::create(1.25,false,0.5,false,CCString::create("smallHit.wav"),true),entity);
-	_entityManager->addComponent(MonsterComponent::create(MonsterTypeQuirk),entity);
-	//_entityManager->addComponent(PhysicsComponent::create(entity,sprite,_world),entity);
+	_entityManager->addComponent(SelectionComponent::create(),entity);
+	Damage *damage = new Damage();
+	if(deck->fight.melee)
+		_entityManager->addComponent(MeleeComponent::create(deck,damage),entity);
+	if(deck->fight.range)
+		_entityManager->addComponent(GunComponent::create(deck,damage),entity);
+	_entityManager->addComponent(monster,entity);
+	values[team-1][(int)monsterType] += deck->price;
 
 	return entity;
 
 }
 
-Entity* EntityFactory::createZapMonsterWithTeam(int team)
-{
-       CCString* spriteFrameName = CCString::createWithFormat("zap%d.png", team);
-	CCSprite * sprite = CCSprite::createWithSpriteFrameName(spriteFrameName->getCString());
-	_batchNode->addChild(sprite);
-	Entity * entity = _entityManager->createEntity();
-	_entityManager->addComponent(RenderComponent::create(sprite),entity);
-	_entityManager->addComponent(HealthComponent::create(10,10),entity);
-
-	// Add to bottom of createQuirkMonster before the return
-	_entityManager->addComponent(MoveComponent::create(ccp(200, 200),50,50),entity);
-	_entityManager->addComponent(TeamComponent::create(team),entity);
-	_entityManager->addComponent(GunComponent::create(100,5,1.5,CCString::create("pew.wav") ),entity);
-       _entityManager->addComponent(MonsterComponent::create(MonsterTypeZap),entity);
-	//_entityManager->addComponent(PhysicsComponent::create(entity,sprite,_world),entity);
-	return entity;
-
-
-}
-Entity* EntityFactory::createMunchMonsterWithTeam(int team)
-{
-    
-       CCString* spriteFrameName = CCString::createWithFormat("munch%d.png", team);
-	CCSprite * sprite = CCSprite::createWithSpriteFrameName(spriteFrameName->getCString());
-	_batchNode->addChild(sprite);
-
-	Entity * entity = _entityManager->createEntity();
-	_entityManager->addComponent(RenderComponent::create(sprite),entity);
-	_entityManager->addComponent(HealthComponent::create(50,50),entity);
-
-	// Add to bottom of createQuirkMonster before the return
-	_entityManager->addComponent(MoveComponent::create(ccp(200, 200),25,25),entity);
-	_entityManager->addComponent(TeamComponent::create(team),entity);
-	_entityManager->addComponent(MeleeComponent::create(10,false,2.0,false,CCString::create("bigHit.wav"),true),entity);
-	_entityManager->addComponent(MonsterComponent::create(MonsterTypeMunch),entity);
-	//_entityManager->addComponent(PhysicsComponent::create(entity,sprite,_world),entity);
-
-	return entity;
-}
 Entity* EntityFactory::createLaserWithTeam(int team)
 {
 
@@ -134,77 +124,35 @@ Entity* EntityFactory::createLaserWithTeam(int team)
 	//CCSprite * sprite = CCSprite::createWithSpriteFrameName(spriteFrameName->getCString());
 	//_batchNode->addChild(sprite);
 
-	CCParticleSystemQuad *sprite = CCParticleSystemQuad::create("bullet.plist");  
-    GetBatchNode("bullet")->addChild(sprite);
-    
+	//CCParticleSystemQuad *sprite = CCParticleSystemQuad::create("bullet.plist");  
+ //   GetBatchNode("bullet")->addChild(sprite);
+	CCParticleSystemQuad *sprite = CCParticleSystemQuad::create(effects[EffectType5Color].name);
+	sprite->setAutoRemoveOnFinish(true);
+	effects[EffectType5Color].particle->addChild(sprite);
+
+ 	Deck* deck =  &decks[0];
+	
 	Entity * entity = _entityManager->createEntity();
 	_entityManager->addComponent(RenderComponent::create(sprite),entity);
 	_entityManager->addComponent(TeamComponent::create(team),entity);
-	_entityManager->addComponent(MeleeComponent::create(5,true,1.0,false,CCString::create("smallHit.wav"),false),entity);
+	//_entityManager->addComponent(MeleeComponent::create(5,true,1.0,false,CCString::create("smallHit.wav"),false),entity);
+	Damage *damage = new Damage();
+	damage->destroySelf = true;
+	_entityManager->addComponent(MeleeComponent::create(deck,damage),entity);
+	
 	_entityManager->addComponent(BulletComponent::create(),entity);
  	//_entityManager->addComponent(PhysicsComponent::create(entity,sprite,_world),entity);
    return entity;
 
 }
-
-Entity* EntityFactory::createExplosion(int team,CCPoint position)
+void EntityFactory::createEffect(EffectType effectType,CCPoint position)
 {
-
-    //CCString* spriteFrameName = CCString::createWithFormat("laser%d.png", team);
-	//CCSprite * sprite = CCSprite::createWithSpriteFrameName(spriteFrameName->getCString());
-	//_batchNode->addChild(sprite);
-	const char* particleName = CCString::createWithFormat("explosion%d.plist", team)->getCString();
-	CCParticleSystemQuad *sprite = CCParticleSystemQuad::create(particleName);  
-	//sprite->retain();
+	//CCLog("%d effect created",effectType);
+	CCParticleSystemQuad *sprite = CCParticleSystemQuad::create(effects[int(effectType)].name);
+	//sprite->setSpeed(1.0f);
+	//sprite->setDuration(1.0f);
 	sprite->setPosition(position);
-	if(team==1)
-	{
-		GetBatchNode("explosion1")->removeAllChildrenWithCleanup(true);
-		GetBatchNode("explosion1")->addChild(sprite);
-	}
-	else
-	{
-		GetBatchNode("explosion2")->removeAllChildrenWithCleanup(true);
-		GetBatchNode("explosion2")->addChild(sprite);
-	}
-    
-	//Entity * entity = _entityManager->createEntity();
-	//_entityManager->addComponent(RenderComponent::create(sprite),entity);
-	//_entityManager->addComponent(TeamComponent::create(team),entity);
-	//_entityManager->addComponent(MeleeComponent::create(5,true,1.0,false,CCString::create("smallHit.wav"),false),entity);
-	//_entityManager->addComponent(BulletComponent::create(),entity);
- 	//_entityManager->addComponent(PhysicsComponent::create(entity,sprite,_world),entity);
-   //return entity;
-	return NULL;
-}
-
-Entity* EntityFactory::createBiteEffect(int team,CCPoint position)
-{
-    //CCString* spriteFrameName = CCString::createWithFormat("laser%d.png", team);
-	//CCSprite * sprite = CCSprite::createWithSpriteFrameName(spriteFrameName->getCString());
-	//_batchNode->addChild(sprite);
-	const char* particleName = CCString::createWithFormat("aoe%d.plist", team)->getCString();
-	CCParticleSystemQuad *sprite = CCParticleSystemQuad::create(particleName);  
-	//sprite->retain();
-	sprite->setPosition(position);
-	if(team==1)
-	{
-		GetBatchNode("aoe1")->removeAllChildrenWithCleanup(true);
-		GetBatchNode("aoe1")->addChild(sprite);
-	}
-	else
-	{
-		GetBatchNode("aoe2")->removeAllChildrenWithCleanup(true);
-		GetBatchNode("aoe2")->addChild(sprite);
-	}
+	//effects[(int)effectType].particle->removeAllChildrenWithCleanup(true);
+	effects[(int)effectType].particle->addChild(sprite);
 	
-	//Entity * entity = _entityManager->createEntity();
-	//_entityManager->addComponent(RenderComponent::create(sprite),entity);
-	//_entityManager->addComponent(TeamComponent::create(team),entity);
-	//_entityManager->addComponent(MeleeComponent::create(5,true,1.0,false,CCString::create("smallHit.wav"),false),entity);
-	//_entityManager->addComponent(BulletComponent::create(),entity);
- 	//_entityManager->addComponent(PhysicsComponent::create(entity,sprite,_world),entity);
-   //return entity;
-		return NULL;
 }
-

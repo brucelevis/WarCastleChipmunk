@@ -22,9 +22,9 @@ CCPoint MoveSystem::arriveEntity(Entity * entity,MoveComponent *move,RenderCompo
  
     float targetSpeed;
     if (distance > slowRadius) {
-        targetSpeed = move->maxVelocity;
+        targetSpeed = move->maxVelocity*SPEEDRATIO;
     } else {
-        targetSpeed = move->maxVelocity * distance / slowRadius;
+        targetSpeed = move->maxVelocity*SPEEDRATIO * distance / slowRadius;
     }
  
     CCPoint targetVelocity = ccpMult(ccpNormalize(vector), targetSpeed);
@@ -66,13 +66,13 @@ void MoveSystem::update(float dt)
  
     CCArray* entities = this->entityManager->getAllEntitiesPosessingComponentOfClass("MoveComponent");
   	for(UINT i=0;i<entities->count();i++){
-	//for (Entity * otherEntity in entities) {
- 		Entity* entity=  (Entity*)entities->objectAtIndex(i);
+		Entity* entity=  (Entity*)entities->objectAtIndex(i);
   
         MoveComponent* move = (MoveComponent*) this->entityManager->getComponentOfClass("MoveComponent",entity);
         RenderComponent* render = (RenderComponent*)  this->entityManager->getComponentOfClass("RenderComponent",entity);
         if (!move || !render) continue;
- 
+		
+ 		
         CCPoint arrivePart =this->arriveEntity(entity,move,render);
         CCPoint separatePart =this->separateEntity(entity,move,render);
         CCPoint newAcceleration = ccpAdd(arrivePart, separatePart);
@@ -85,16 +85,16 @@ void MoveSystem::update(float dt)
  
         // Update current velocity based on acceleration and dt, and clamp
         move->velocity = ccpAdd(move->velocity, ccpMult(move->acceleration, dt));
-        if (ccpLength(move->velocity) > move->maxVelocity) {
-            move->velocity = ccpMult(ccpNormalize(move->velocity), move->maxVelocity);
+        if (ccpLength(move->velocity) > move->maxVelocity*SPEEDRATIO) {
+            move->velocity = ccpMult(ccpNormalize(move->velocity), move->maxVelocity*SPEEDRATIO);
         }
- 
+		
         // Update position based on velocity
         CCPoint newPosition = ccpAdd(render->node->getPosition(), ccpMult(move->velocity, dt));
         CCSize winSize = CCDirector::sharedDirector()->getWinSize();
         newPosition.x = MAX(MIN(newPosition.x, winSize.width - render->node->getContentSize().width/2),  render->node->getContentSize().width/2);
         newPosition.y = MAX(MIN(newPosition.y, winSize.height - render->node->getContentSize().height/2), render->node->getContentSize().height/2);
         render->node->setPosition (newPosition);
- 
+		
     }
 }

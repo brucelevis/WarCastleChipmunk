@@ -2,7 +2,7 @@
 #define  _APP_DELEGATE_H_
 
 #include "cocos2d.h"
-
+#include "Constant.h"
 /**
 @brief    The cocos2d Application.
 
@@ -33,6 +33,7 @@ public:
     */
     virtual void applicationWillEnterForeground();
 };
+
 
 #endif // _APP_DELEGATE_H_
 

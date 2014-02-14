@@ -12,7 +12,10 @@ void PlayerSystem::handleMover(Entity *mover,bool attacking) {
     RenderComponent* moverRender = mover->render();
     MoveComponent* moverMove = mover->move();
     if (!moverTeam || !moverRender || !moverMove) return;
-    
+    //return;
+	SelectionComponent* select = mover->select();
+	if(select->selected)
+		return;
     if (attacking) {
     
         Entity* enemy = mover->closestEntityOnTeam(OPPOSITE_TEAM(moverTeam->team));
@@ -29,11 +32,12 @@ void PlayerSystem::handleMover(Entity *mover,bool attacking) {
         GunComponent* gun = mover->gun();
         if (gun) {
             CCPoint vector = ccpNormalize(ccpSub(moverRender->node->getPosition(), enemyRender->node->getPosition()));
-            moverMove->moveTarget = ccpAdd(enemyRender->node->getPosition(), ccpMult(vector, gun->range));
+            moverMove->moveTarget = ccpAdd(enemyRender->node->getPosition(), ccpMult(vector, gun->deck->fight.Range*SPEEDRATIO));
         }
         
     } else {
-        
+
+
         Entity* player = mover->playerForTeam(moverTeam->team);
         RenderComponent* playerRender = player->render();
         if (!playerRender) return;
@@ -57,23 +61,24 @@ void PlayerSystem::update(float dt) {
         
         // Handle coins
         static float COIN_DROP_INTERVAL = 1500;
-        static float COINS_PER_INTERVAL = 5;
-		static float COINS_MAX = 95;
+        //static float COINS_PER_INTERVAL = 5;
+		//static float COINS_MAX = 95;
         if (time - player->lastCoinDrop > COIN_DROP_INTERVAL) {
-            player->lastCoinDrop = time;
-			if(player->coins>COINS_MAX) break;
-            player->coins += COINS_PER_INTERVAL;
+            player->RefreshCoins();
         }
         
         // Update player image
         if (render && team) {
-            if (player->attacking) {
-                CCString* spriteFrameName = CCString::createWithFormat("castle%d_atk.png", team->team);
-                ((CCSprite*)render->node)->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(spriteFrameName->getCString()));
-            } else {
-                CCString* spriteFrameName =CCString::createWithFormat("castle%d_def.png", team->team);
-                 ((CCSprite*)render->node)->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(spriteFrameName->getCString()));
-                }
+			if(team->team==1)
+				((CCSprite*)render->node)->setFlipX(true);
+			((CCSprite*)render->node)->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(player->attacking?airplanes_atk[g_level%5]:airplanes[g_level%5]));
+            //if (player->attacking) {
+            //    CCString* spriteFrameName = CCString::createWithFormat("castle%d_atk.png", team->team);
+            //    ((CCSprite*)render->node)->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(spriteFrameName->getCString()));
+            //} else {
+            //    CCString* spriteFrameName =CCString::createWithFormat("castle%d_def.png", team->team);
+            //     ((CCSprite*)render->node)->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(spriteFrameName->getCString()));
+            //    }
         }
         
         // Update monster movement orders
@@ -88,3 +93,15 @@ void PlayerSystem::update(float dt) {
         
     }
 }
+
+bool PlayerSystem::handleEconomic(PlayerComponent* player,Deck* deck)
+{
+    	if (!player) return false;
+    	if (player->coins < deck->price || player->people > player->maxPeople) return false;
+	if(player->people + deck->fight.FoodCap> player->maxPeople) return false;
+    	player->coins -= deck->price;
+	player->people += deck->fight.FoodCap;
+	player->RefreshOverload();
+	return true;
+}
+

@@ -17,21 +17,17 @@ CCString *AIStateCounter::name() {
     AIComponent* ai = entity->ai();
     if (!team || !player || !ai) return;
     
-    CCArray* enemies = entity->entitiesWithinRange(200,OPPOSITE_TEAM(team->team));
+    CCArray* enemies = entity->entitiesWithinRange(decks[0].fight.Range,OPPOSITE_TEAM(team->team));
     if (enemies->count() > 0) {
-        
-        while (player->coins > COST_QUIRK) {
-            if (system->aiQuirkValue < system->humanZapValue && player->coins > COST_QUIRK) {
-                system->spawnQuirkForEntity(entity);
-            } else if (system->aiZapValue < system->humanMunchValue && player->coins > COST_ZAP) {
-                system->spawnZapForEntity(entity);
-            } else if (system->aiMunchValue < system->humanQuirkValue && player->coins > COST_MUNCH) {
-                system->spawnMunchForEntity(entity);
-            } else {
-                system->spawnQuirkForEntity(entity);
-            }
-        }
-                
+        for(int i = BUILDING_NUM; i<BUILDING_NUM+SPRITE_NUM;i++)
+		{
+			if(decks[i].selection && values[0][i] > values[1][i] && player->coins > decks[i].price)
+			{
+				system->spawnMonsterForEntity(MonsterType(i),entity);
+				break;
+			}
+
+		}
         system->changeStateForEntity(entity,AIStateDefend::create());
         
     }

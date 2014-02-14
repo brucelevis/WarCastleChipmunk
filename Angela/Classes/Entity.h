@@ -10,7 +10,7 @@
 #include "AIComponent.h"
 #include "MonsterComponent.h"
 #include "BulletComponent.h"
-//#include "PhysicsComponent.h"
+#include "SelectionComponent.h"
 
 
 NS_CC_BEGIN
@@ -35,7 +35,7 @@ public:
 	AIComponent* ai();
 	MonsterComponent* monster();
 	BulletComponent* bullet();
-//	PhysicsComponent* physics();
+	SelectionComponent* select();
 		
 	CCArray *getAllEntitiesOnTeam(int team,std::string className);
 	Entity *closestEntityOnTeam(int team);

@@ -56,6 +56,10 @@ BulletComponent* Entity::bullet()
 {
 	return (BulletComponent*) entityManager->getComponentOfClass("BulletComponent",this);
 }
+SelectionComponent* Entity::select()
+{
+	return (SelectionComponent*) entityManager->getComponentOfClass("SelectionComponent",this);
+}
 CCArray* Entity::getAllEntitiesOnTeam(int team,std::string className) {
     
     CCArray* allEntities = entityManager->getAllEntitiesPosessingComponentOfClass(className);
