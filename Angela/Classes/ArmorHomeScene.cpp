@@ -36,7 +36,7 @@ bool ArmorHome::init()
 void ArmorHome::basicSetup()
 {
 	int _level= CCUserDefault::sharedUserDefault()->getIntegerForKey("level",1);
-	_level = 10;
+	//_level = 10;
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
 	CCSize frameSize = CCEGLView::sharedOpenGLView()->getFrameSize();  
@@ -128,8 +128,12 @@ void ArmorHome::basicSetup()
     float paidrate =  CCUserDefault::sharedUserDefault()->getFloatForKey("PAIDRATE",0.01f);
     PAIDRATE = paidrate;
     if(paiduser)
+    {
+        _level = 8;
+    
         MAX_SELECTED = 8;
-	//other UI
+	}
+        //other UI
 	CCSprite *background =  CCSprite::createWithSpriteFrameName(backgrounds[0]);
     background->setPosition(ccp(winSize.width/2, winSize.height/2-yOffset/2));
     this->addChild(background,-1);

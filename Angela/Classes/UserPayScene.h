@@ -5,18 +5,21 @@
 #include "CCStoreTransactionDelegate.h"
 #include "CCStoreProductsRequestDelegate.h"
 #include "Scenes.h"
+
 NS_CC_BEGIN
 
 class UserPay :	public CCLayer, public CCStoreTransactionDelegate, public CCStoreProductsRequestDelegate
 {
 public:
 	CCSpriteBatchNode *_batchNodes;
+    CCLabelTTF*  _price;
 	CCMenu* menu;
 	CCArray* products;
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
      static cocos2d::CCScene* scene();
      // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();  
+    virtual bool init();
+ 
     void basicSetup();
 	void addPlayers();
     //void choose(int level);

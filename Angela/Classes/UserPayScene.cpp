@@ -5,9 +5,15 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 
+pthread_mutex_t mutex;
+pthread_cond_t condition;
+bool     ready_to_go = true;
+
 CCScene* UserPay::scene()
 {
-    // 'scene' is an autorelease object
+    pthread_mutex_init(&mutex, NULL);
+    pthread_cond_init(&condition, NULL);
+   // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
     // 'layer' is an autorelease object
@@ -131,21 +137,31 @@ void UserPay::basicSetup()
  //   welcome->retain();
  //   welcome->setPosition(ccp(winSize.width/2-xMARGIN*4,winSize.height/2-yMARGIN*1.5));
 	//this->addChild(welcome);
+    bool vip = CCUserDefault::sharedUserDefault()->getBoolForKey("PAIDUSER");
+    float rate = CCUserDefault::sharedUserDefault()->getFloatForKey("PAIDRATE");
+	CCSprite* boardbg = CCSprite::createWithSpriteFrameName("button.png");
 
+	CCString* message = CCString::createWithFormat("VIP:%s,Loyalty:%d",vip?"yes":"no",(int)rate);
+    
+	CCLabelTTF* board =CCLabelTTF::create(message->getCString(), "Georgia-Italic", fontSizeBig, boardbg->getContentSize(), kCCTextAlignmentCenter );
+	board->setColor(ccc3(252,236,54));
+	board->setPosition(ccp(xMARGIN*1.0+boardbg->getContentSize().width/2,winSize.height-yOffset/2*boardbg->getContentSize().height*1.1/winSize.height-yMARGIN*1.8*1.57));
+    this->addChild(board);
+    
     CCArray* items = CCArray::create();
 	CCSprite*	button = CCSprite::createWithSpriteFrameName("shortcut_home.png");
 	CCPoint point = ccp(winSize.width-button->getContentSize().width/2,winSize.height/2-button->getContentSize().height);
-	CCMenuItemSprite* homeButton = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("shortcut_home.png"),CCSprite::createWithSpriteFrameName("shortcut_home.png"),this,menu_selector(Splash::homeButtonTapped));
+	CCMenuItemSprite* homeButton = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("shortcut_home.png"),CCSprite::createWithSpriteFrameName("shortcut_home.png"),this,menu_selector(UserPay::homeButtonTapped));
 	homeButton->setPosition(point);
 	items->addObject(homeButton);
 
 	point.y += button->getContentSize().height;
-	CCMenuItemSprite* shopButton = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("shortcut_shop.png"),CCSprite::createWithSpriteFrameName("shortcut_shop.png"),this,menu_selector(Splash::shopButtonTapped));
+	CCMenuItemSprite* shopButton = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("shortcut_shop.png"),CCSprite::createWithSpriteFrameName("shortcut_shop.png"),this,menu_selector(UserPay::shopButtonTapped));
 	shopButton->setPosition(point);
 	items->addObject(shopButton);
 
 	point.y += button->getContentSize().height;
-	CCMenuItemSprite* helpButton = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("shortcut_help.png"),CCSprite::createWithSpriteFrameName("shortcut_help.png"),this,menu_selector(Splash::helpButtonTapped));
+	CCMenuItemSprite* helpButton = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("shortcut_help.png"),CCSprite::createWithSpriteFrameName("shortcut_help.png"),this,menu_selector(UserPay::helpButtonTapped));
 	helpButton->setPosition(point);
 	items->addObject(helpButton);
 
@@ -162,10 +178,76 @@ void UserPay::basicSetup()
 
 void UserPay::addPlayers()
 {
-    CCStore::sharedStore()->postInitWithTransactionDelegate(this);
-    CCStore::sharedStore()->setReceiptVerifyMode(CCStoreReceiptVerifyModeDevice);
-    CCStore::sharedStore()->loadProducts(products, this);
-	
+    if(CCStore::sharedStore()->canMakePurchases())
+    {
+        products->addObject(CCStoreProduct::productWithId("com.bangtech.angelplanet.vip", "VIP", "If you become VIP, you will get more planes to carry with and you have a bonus for hit points, attacking damage, moving speed, firing speed and you will unlock all the levels.", 0.00, "$-.-"));
+        //requestProductsCompleted(products,NULL);
+        pthread_mutex_lock(&mutex);
+        ready_to_go = false;
+        pthread_mutex_unlock(&mutex);
+
+//        while(ready_to_go == false)
+//        {
+//            pthread_cond_wait(&condition, &mutex);
+//        }
+
+        CCStore::sharedStore()->postInitWithTransactionDelegate(this);
+        CCStore::sharedStore()->setReceiptVerifyMode(CCStoreReceiptVerifyModeDevice);
+        CCStore::sharedStore()->loadProducts(products, this);
+        
+        try{
+            
+            CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+            CCSprite* button = CCSprite::createWithSpriteFrameName("button.png");
+            int columns = 1;
+            float spaceBetween = columns +1;
+            int rows = 4;
+            int spaceBetweenRows = rows +1;
+            int spacing = xMARGIN*3+button->getContentSize().width;
+            int rowSpacing = yMARGIN*1.57*4+button->getContentSize().height;
+            
+            CCPoint point = ccp(0,winSize.height-yMARGIN*4*1.57);
+            
+
+            for (int i = 0; i < products->count(); ++i)
+            {
+                CCStoreProduct* product = static_cast<CCStoreProduct*>(products->objectAtIndex(i));
+                
+                point.x = point.x + spacing;
+                if(point.x-spacing>= spacing*columns) {
+                    point.x = spacing;
+                    point.y = point.y - rowSpacing;
+                }
+                CCMenuItemSprite* quirkButton = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("button_shop.png"),CCSprite::createWithSpriteFrameName("button_shop_sel.png"),this,menu_selector(UserPay::levelButtonTapped));
+                quirkButton->retain();
+                quirkButton->setPosition(point);
+                
+                CCSize contentSize =  quirkButton->getContentSize();
+                
+                CCString* message = CCString::createWithFormat("Become %s, Cost %.2f",product->getLocalizedTitle().c_str(),product->getPrice());
+                CCString* description = CCString::createWithFormat("%s",product->getLocalizedDescription().c_str());
+                _price = CCLabelTTF::create(message->getCString(), "Georgia-Italic", fontSizeSmall, ccp(xMARGIN*16,yMARGIN), kCCTextAlignmentCenter );
+                _price->setColor(ccc3(252,236,54));
+                CCLabelTTF* descriptionLabel =CCLabelTTF::create(description->getCString(), "Georgia-Italic", fontSizeTiny, ccp(xMARGIN*16,yMARGIN*4), kCCTextAlignmentCenter );
+                _price->setPosition(ccp(contentSize.width * 0.5,contentSize.height * 0.5));
+                quirkButton->addChild(_price);
+                descriptionLabel->setPosition(ccp(contentSize.width * 0.5,contentSize.height * 0.5 -3* yMARGIN));
+                descriptionLabel->setColor(ccc3(0,0,0x99));
+                quirkButton->addChild(descriptionLabel);
+                
+                quirkButton->setTag(i);
+                menu->addChild(quirkButton);
+            }
+        }catch( ... ){
+            
+            CCStore::sharedStore()->cancelLoadProducts();
+        }
+
+	}else
+    {
+        CCMessageBox("Please enable Purchase for Angel Planet.","Cannot Make Purchase.");
+        
+    }
   
     
 }
@@ -177,7 +259,6 @@ void UserPay::registerWithTouchDispatcher()
 }
 bool UserPay::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 {
-	CCDirector::sharedDirector()->replaceScene(ArmorHome::scene());
 	return true;
 }
 
@@ -187,12 +268,18 @@ bool UserPay::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 
 void UserPay::transactionCompleted(CCStorePaymentTransaction* transaction)
 {
+    
     CCLOG("\n");
     CCLOG("TransactionIdentifier: %s\n", transaction->getTransactionIdentifier().c_str());
     CCLOG("\n");
-    
+    std::string prodid = transaction->getProductIdentifier();
     CCMessageBox(transaction->getTransactionIdentifier().c_str(),"Purchase completed.");
-    
+    PAIDUSER = true;
+    if(prodid.find("vip")!=-1 && PAIDRATE<1)
+        PAIDRATE += 1;
+    CCUserDefault::sharedUserDefault()->setBoolForKey("PAIDUSER",PAIDUSER);
+    CCUserDefault::sharedUserDefault()->setFloatForKey("PAIDRATE",PAIDRATE);
+
     CCStore::sharedStore()->finishTransaction(transaction);
 }
 
@@ -209,7 +296,13 @@ void UserPay::transactionRestored(CCStorePaymentTransaction* transaction)
     CCLOG("OriginTransactionIdentifier: %s\n",
            transaction->getOriginalTransaction()->getTransactionIdentifier().c_str());
     CCLOG("\n");
-    
+    std::string prodid = transaction->getProductIdentifier();
+    PAIDUSER = true;
+    if(prodid.find("vip")!=-1)
+        PAIDRATE += 1;
+    CCUserDefault::sharedUserDefault()->setBoolForKey("PAIDUSER",PAIDUSER);
+    CCUserDefault::sharedUserDefault()->setFloatForKey("PAIDRATE",PAIDRATE);
+
     CCStore::sharedStore()->finishTransaction(transaction);
 }
 
@@ -218,113 +311,200 @@ void UserPay::transactionRestored(CCStorePaymentTransaction* transaction)
 
 void UserPay::requestProductsCompleted(CCArray* products, CCArray* invalidProductsId)
 {
-	this->products = products;
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    int columns = 2;
-    float spaceBetween = columns +1;
-    int rows = 5;
-    int spaceBetweenRows = rows +1;
-    int spacing = winSize.width/spaceBetween;
-    int rowSpacing = winSize.height/spaceBetweenRows;
+    CCLog("request start");
+      pthread_mutex_lock(&mutex);
     
-    CCPoint point = ccp(0,winSize.height-rowSpacing);
-    CCArray* items = CCArray::create();
-    for (int i = 0; i < products->count(); ++i)
-    {
-        CCStoreProduct* product = static_cast<CCStoreProduct*>(products->objectAtIndex(i));
-		point.x = point.x + spacing;
-        if(point.x> spacing*columns) {
-            point.x = spacing;
-            point.y = point.y - rowSpacing;
-         }
-		CCMenuItemSprite* quirkButton = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("button.png"),CCSprite::createWithSpriteFrameName("button_sel.png"),this,menu_selector(UserPay::levelButtonTapped));
-		
-		quirkButton->setPosition(point);
-        char temp[64];
-        sprintf(temp, "%s %s",product->getLocalizedTitle().c_str(),product->getPriceLocale().c_str());
-        CCSize contentSize =  quirkButton->getContentSize();
-        
-        CCLabelBMFont* quirkLabel = CCLabelBMFont::create(temp,"Courier.fnt");
-        quirkLabel->retain();
-        quirkLabel->setPosition(ccp(contentSize.width * 0.5,contentSize.height * 0.5));
-        quirkButton->addChild(quirkLabel);
-        quirkButton->setTag(i);
-        items->addObject(quirkButton);
- 
-        //CCLOG("PRODUCT ID: %s\n",              product->getProductIdentifier().c_str());
-        //CCLOG("  localizedTitle: %s\n",        product->getLocalizedTitle().c_str());
-        //CCLOG("  localizedDescription: %s\n",  product->getLocalizedDescription().c_str());
-        //CCLOG("  priceLocale: %s\n",           product->getPriceLocale().c_str());
-        //CCLOG("  price: %0.2f\n",              product->getPrice());
-        
-       //message = message->createWithFormat("PRODUCT ID: %s,\nlocalizedTitle: %s,\nlocalizedDescription: %s,\npriceLocale: %s,\nprice: %0.2f", product->getProductIdentifier().c_str(),product->getLocalizedTitle().c_str(),product->getLocalizedDescription().c_str(),product->getPriceLocale().c_str(),product->getPrice());
-    }
-    CCMenu* menu = CCMenu::createWithArray(items);
-    menu->setPosition(ccp(0,0-xMARGIN));
-    this->addChild(menu);
+    ready_to_go = true;
+    
+    // Signal the other thread to begin work.
+    pthread_cond_signal(&condition);
+    
+    pthread_mutex_unlock(&mutex);
+    CCStoreProduct* product = static_cast<CCStoreProduct*>(products->objectAtIndex(0));
+    //CCStoreProduct* productRef =static_cast<CCStoreProduct*>(this->products->objectAtIndex(0));
+    this->products->removeLastObject();
+    this->products->addObject(CCStoreProduct::productWithId(product->getProductIdentifier().c_str(), product->getLocalizedTitle().c_str(), product->getLocalizedDescription().c_str(), product->getPrice(), product->getPriceLocale().c_str()));
+    CCString* message = CCString::createWithFormat("Become %s, Cost %.2f",product->getLocalizedTitle().c_str(),product->getPrice());
 
-    //if (NULL != message)
-    //{
-    //    CCMessageBox(message->getCString(),"商品信息");
-    //}
-    //
-    //printf("\n");
-    //
-    //message = NULL;
-    //if (invalidProductsId && invalidProductsId->count() > 0)
-    //{
-    //    printf("FOUND INVALID PRODUCTS ID\n");
-    //    message = message->create("");
-    //    for (int i = 0; i < invalidProductsId->count(); ++i)
-    //    {
-    //        CCString* ccid = static_cast<CCString*>(invalidProductsId->objectAtIndex(i));
-    //        CCLOG("  %s\n", ccid->getCString());
-    //        message = message->createWithFormat("%s%s",message->getCString(),ccid->getCString());
-    //    }
-    //    if (NULL != message)
-    //    {
-    //        CCMessageBox(message->getCString(),"无效商品信息商品信息");
-    //    }
-    //}
-    //
-    //printf("\n");
+    _price->setString(message->getCString());
+    CCLog("aaaa,%f",product->getPrice());
+//    try{
+//       
+//    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+//	CCSprite* button = CCSprite::createWithSpriteFrameName("button.png");
+//    int columns = 1;
+//    float spaceBetween = columns +1;
+//    int rows = 4;
+//    int spaceBetweenRows = rows +1;
+//    int spacing = xMARGIN*3+button->getContentSize().width;
+//    int rowSpacing = yMARGIN*1.57*4+button->getContentSize().height;
+//    
+//    CCPoint point = ccp(0,winSize.height-yMARGIN*4*1.57);
+//    
+//    for(int i = 0; i < products->count(); ++i)
+//        menu->removeChildByTag(i);
+//    for (int i = 0; i < products->count(); ++i)
+//    {
+//        CCStoreProduct* product = static_cast<CCStoreProduct*>(products->objectAtIndex(i));
+//
+//        point.x = point.x + spacing;
+//        if(point.x-spacing>= spacing*columns) {
+//            point.x = spacing;
+//            point.y = point.y - rowSpacing;
+//        }
+//		CCMenuItemSprite* quirkButton = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("button_shop.png"),CCSprite::createWithSpriteFrameName("button_shop_sel.png"),this,menu_selector(UserPay::levelButtonTapped));
+//		quirkButton->retain();
+//		quirkButton->setPosition(point);
+//
+//        CCSize contentSize =  quirkButton->getContentSize();
+//        
+//        //
+//        CCString* message = CCString::createWithFormat("Become %s, Cost %.2f",product->getLocalizedTitle().c_str(),product->getPrice());
+//        CCString* description = CCString::createWithFormat("%s",product->getLocalizedDescription().c_str());
+//        CCLabelTTF* quirkLabel = CCLabelTTF::create(message->getCString(), "Georgia-Italic", fontSizeSmall, ccp(xMARGIN*16,yMARGIN), kCCTextAlignmentCenter );
+//        quirkLabel->setColor(ccc3(252,236,54));
+//        CCLabelTTF* descriptionLabel =CCLabelTTF::create(description->getCString(), "Georgia-Italic", fontSizeTiny, ccp(xMARGIN*16,yMARGIN*4), kCCTextAlignmentCenter );
+//        quirkLabel->setPosition(ccp(contentSize.width * 0.5,contentSize.height * 0.5));
+//        quirkButton->addChild(quirkLabel);
+//        descriptionLabel->setPosition(ccp(contentSize.width * 0.5,contentSize.height * 0.5 -3* yMARGIN));
+//        descriptionLabel->setColor(ccc3(0,0,0x99));
+//       quirkButton->addChild(descriptionLabel);
+//
+//        quirkButton->setTag(i);
+//        menu->addChild(quirkButton);
+//    }
+//    }catch( ... ){
+//        
+//        CCStore::sharedStore()->cancelLoadProducts();
+//    }
+    
 }
 
 void UserPay::requestProductsFailed(int errorCode, const char* errorString)
 {
+    pthread_mutex_lock(&mutex);
+    ready_to_go = true;
+    
+    // Signal the other thread to begin work.
+    pthread_cond_signal(&condition);
+    
+    pthread_mutex_unlock(&mutex);
     CCMessageBox(errorString,"Request failed.");
 }
 
 void UserPay::levelButtonTapped(CCObject* obj){
-    CCMenuItemSprite* quirkButton = (CCMenuItemSprite* )obj;
-    int  index = quirkButton->getTag();
-	CCStoreProduct* product = static_cast<CCStoreProduct*>(products->objectAtIndex(index));
-	//CCDirector::sharedDirector()->replaceScene(Splash::scene(g_level));
-	if (CCStore::sharedStore()->purchase(product->getProductIdentifier().c_str()))
+    if(CCStore::sharedStore()->canMakePurchases())
     {
-        PAIDUSER = true;
-		PAIDRATE += product->getPrice();
-        CCUserDefault::sharedUserDefault()->setBoolForKey("PAIDUSER",PAIDUSER);
-		CCUserDefault::sharedUserDefault()->setFloatForKey("PAIDRATE",PAIDRATE);
-
+        CCMenuItemSprite* quirkButton = (CCMenuItemSprite* )obj;
+        int  index = quirkButton->getTag();
+        CCStoreProduct* product = static_cast<CCStoreProduct*>(products->objectAtIndex(index));
+        if (CCStore::sharedStore()->purchase(product->getProductIdentifier().c_str()))
+        {
+        CCMessageBox("Enjoy the game!","Purchase Start!");
         
-    }
-    else
+        }
+        else
+        {
+        CCMessageBox("Opps, something goes wrong, try again!","Purchase failed!");
+        
+        }
+    }else
     {
-
+        CCMessageBox("Please enable Purchase for Angel Planet.","Cannot Make Purchase.");
+        
     }
 }
 
 void  UserPay::homeButtonTapped(CCObject* obj) 
 {
-	CCDirector::sharedDirector()->replaceScene(ArmorHome::scene());
+    // Lock the mutex.
+    pthread_mutex_lock(&mutex);
+    struct timeval now;
+    struct timespec outtime;
+ 
+    // If the predicate is already set, then the while loop is bypassed;
+    // otherwise, the thread sleeps until the predicate is set.
+    while(ready_to_go == false)
+    {
+        gettimeofday(&now, NULL);
+        outtime.tv_sec = now.tv_sec + 5;
+        outtime.tv_nsec = now.tv_usec * 1000;
+        int error = pthread_cond_timedwait(&condition, &mutex,&outtime);
+        if(ETIMEDOUT==error)
+        {
+        pthread_mutex_unlock(&mutex);
+        return;
+        }else
+            break;
+    }
+    
+    // Do work. (The mutex should stay locked.)
+    
+    // Reset the predicate and release the mutex.
+    ready_to_go = true;
+    pthread_mutex_unlock(&mutex);
+    CCDirector::sharedDirector()->replaceScene(ArmorHome::scene());
+
 }
 void  UserPay::helpButtonTapped(CCObject* obj) 
 {
-	CCDirector::sharedDirector()->replaceScene(HelpLayer::scene());
+    // Lock the mutex.
+    pthread_mutex_lock(&mutex);
+    struct timeval now;
+    struct timespec outtime;
+   
+    // If the predicate is already set, then the while loop is bypassed;
+    // otherwise, the thread sleeps until the predicate is set.
+    while(ready_to_go == false)
+    {
+        gettimeofday(&now, NULL);
+        outtime.tv_sec = now.tv_sec + 5;
+        outtime.tv_nsec = now.tv_usec * 1000;
+        int error = pthread_cond_timedwait(&condition, &mutex,&outtime);
+        if(ETIMEDOUT==error)
+        {
+            pthread_mutex_unlock(&mutex);
+            return;
+        }else
+            break;
+    }
+    
+    
+    // Reset the predicate and release the mutex.
+    ready_to_go = true;
+    pthread_mutex_unlock(&mutex);
+    // Do work. (The mutex should stay locked.)
+    CCDirector::sharedDirector()->replaceScene(HelpLayer::scene());
+
 }
 
 void UserPay::shopButtonTapped(CCObject* obj) 
 {
-	CCDirector::sharedDirector()->replaceScene(UserPay::scene());
+    // Lock the mutex.
+    pthread_mutex_lock(&mutex);
+    struct timeval now;
+    struct timespec outtime;
+    
+    // If the predicate is already set, then the while loop is bypassed;
+    // otherwise, the thread sleeps until the predicate is set.
+    while(ready_to_go == false)
+    {
+        gettimeofday(&now, NULL);
+        outtime.tv_sec = now.tv_sec + 5;
+        outtime.tv_nsec = now.tv_usec * 1000;
+        int error = pthread_cond_timedwait(&condition, &mutex,&outtime);
+        if(ETIMEDOUT==error)
+        {
+            pthread_mutex_unlock(&mutex);
+            return;
+        }else
+            break;
+    }
+    
+    // Reset the predicate and release the mutex.
+    ready_to_go = true;
+    pthread_mutex_unlock(&mutex);
+    // Do work. (The mutex should stay locked.)
+    CCDirector::sharedDirector()->replaceScene(UserPay::scene());
+ 
 }
